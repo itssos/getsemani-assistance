@@ -1,0 +1,82 @@
+
+
+<div class="relative overflow-x-auto">
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+              <th scope="col" class="px-6 py-3">
+                  Nombre
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  Apellido
+              </th>
+              <th scope="col" class="px-3 py-3">
+                  Grado
+              </th>
+              <th scope="col" class="px-3 py-3">
+                  Sección
+              </th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let student of studentList" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td class="px-6 py-4">
+                  {{student.name}}
+              </td>
+              <td class="px-6 py-4">
+                {{student.surname}}
+              </td>
+              <td class="px-3 py-4">
+                {{student.grade}}
+              </td>
+              <td class="px-3 py-4">
+                {{student.section}}
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+<section class="bg-white dark:bg-gray-900">
+  <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+      <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Agregar un estudiante</h2>
+      <form>
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+              <div class="sm:col-span-2">
+                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+                  <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Pepito" required="">
+              </div>
+              <div class="w-full">
+                  <label for="surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
+                  <input type="text" name="surname" id="surname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Quispe" required="">
+              </div>
+              <div class="w-full">
+                  <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
+                  <input type="number" name="id" id="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="12345678" required="">
+              </div>
+              <div>
+                  <label for="grade" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Grado</label>
+                  <select name="grade" id="grade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                      <option selected="">Selecciona un grado</option>
+                      <option value="TV">1</option>
+                      <option value="PC">2</option>
+                      <option value="GA">3</option>
+                      <option value="PH">4</option>
+                      <option value="PH">5</option>
+                      <option value="PH">6</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="section" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sección</label>
+                  <select name="section" id="section" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                      <option selected="">Selecciona una sección</option>
+                      <option value="TV">A</option>
+                      <option value="PC">B</option>
+                      <option value="GA">C</option>
+                  </select>
+              </div>
+          </div>
+          <button type="submit" class="mt-5 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
+      </form>
+  </div>
+</section>
