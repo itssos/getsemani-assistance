@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { StudentComponent } from './component/student/student.component';
-import { NavbarComponent } from './component/navbar/navbar.component';
+import { NavbarComponent } from './shared/component/navbar/navbar.component';
 import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, StudentComponent, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

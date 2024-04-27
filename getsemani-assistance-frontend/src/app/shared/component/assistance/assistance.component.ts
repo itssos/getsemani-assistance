@@ -1,10 +1,10 @@
-import { AssistanceService } from './../../service/assistance.service';
+import { AssistanceService } from '../../../core/service/assistance.service';
 import { Component, ViewChild} from '@angular/core';
-import { QrCodeMainService } from '../../service/qr-code-main.service';
-import { QrCodeIndexService } from '../../service/qr-code-index.service';
+import { QrCodeMainService } from '../../../core/service/qr-code-main.service';
+import { QrCodeIndexService } from '../../../core/service/qr-code-index.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
-import { StudentService } from '../../service/student.service';
+import { StudentService } from '../../../core/service/student.service';
 
 @Component({
   selector: 'app-assistance',

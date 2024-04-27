@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { StudentComponent } from './component/student/student.component';
-import { AssistanceComponent } from './component/assistance/assistance.component';
+import { AssistanceComponent } from './shared/component/assistance/assistance.component';
+import { StudentComponent } from './page/student/student.component';
 
 export const routes: Routes = [
   {path: 'estudiantes', component: StudentComponent},

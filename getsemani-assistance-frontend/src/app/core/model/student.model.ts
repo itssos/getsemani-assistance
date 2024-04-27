@@ -1,7 +1,7 @@
 export interface IStudent {
-    id:      number;
+    id:      string;
     name:    string;
     surname: string;
-    grade:   number;
+    grade:   string;
     section: string;
 }

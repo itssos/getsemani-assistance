@@ -1,24 +1,23 @@
 import { Component } from '@angular/core';
-import { StudentService } from '../../service/student.service';
-import { IStudent } from '../../model/student.model';
 import { NgFor } from '@angular/common';
 import { NgForm } from '@angular/forms';
+import { IStudent } from '../../../../core/model/student.model';
+import { StudentService } from '../../../../core/service/student.service';
 
 @Component({
-  selector: 'app-student',
+  selector: 'app-student-list',
   standalone: true,
   imports: [NgFor],
-  templateUrl: './student.component.html',
-  styleUrl: './student.component.css'
+  templateUrl: './student-list.component.html',
+  styleUrl: './student-list.component.css'
 })
-export class StudentComponent {
-
+export class StudentListComponent {
   studentList: IStudent[] = []
   newStudent: IStudent = {
-    id: 0,
+    id: '',
     name: '',
     surname: '',
-    grade: 0,
+    grade: '',
     section: ''
   }
 
