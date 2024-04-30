@@ -44,7 +44,7 @@ export class StudentFormComponent {
         }
       })
     } else {
-      console.log('Error al enviar los datos:');
+      console.warn('¡El formulario no es valido!');
       this.formIsValid();
     }
   }

@@ -20,12 +20,12 @@ public class Student {
 
     @NotBlank(message = "The name cannot be blank.")
     @Size(max = 50, message = "The name must not exceed 50 characters.")
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "The name must contain only letters.")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ ]+$", message = "The name must contain only letters.")
     private String name;
 
     @NotBlank(message = "The surname cannot be blank.")
     @Size(max = 50, message = "The surname must not exceed 50 characters.")
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "The surname must contain only letters.")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ ]+$", message = "The surname must contain only letters.")
     private String surname;
 
     @NotBlank(message = "The grade cannot be blank.")

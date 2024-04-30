@@ -1,33 +1,33 @@
 
-<section class="bg-white dark:bg-gray-900">
+<section class="border-b">
   <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-      <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Agregar un estudiante</h2>
+      <h2 class="mb-4 text-xl font-bold text-gray-900">Agregar un estudiante</h2>
       <form [formGroup]="formGroup">
           <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-              <div class="sm:col-span-2">
-                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                  <input formControlName="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Pepito" (input)="nameValid = !formGroup.controls.name.valid">
+              <div>
+                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
+                  <input formControlName="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Pepito" (input)="nameValid = !formGroup.controls.name.valid">
                   @if(nameValid){
-                    <p id="standard_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400">Ingrese un nombre.</p>
-                  }
-              </div>
-              <div class="w-full">
-                  <label for="surname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
-                  <input formControlName="surname" type="text" id="surname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Quispe" (input)="surnameValid = !formGroup.controls.surname.valid">
-                  @if(surnameValid){
-                    <p id="standard_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400">Ingrese un nombre.</p>
-                  }
-              </div>
-              <div class="w-full">
-                  <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
-                  <input formControlName="id" type="number" id="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="12345678" (input)="idValid = !formGroup.controls.id.valid">
-                  @if(idValid){
-                    <p id="standard_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400">Ingrese un nombre.</p>
+                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">Ingrese un nombre.</p>
                   }
               </div>
               <div>
-                  <label for="grade" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Grado</label>
-                  <select formControlName="grade" id="grade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" (change)="gradeValid = !formGroup.controls.grade.valid">
+                  <label for="surname" class="block mb-2 text-sm font-medium text-gray-900">Apellido</label>
+                  <input formControlName="surname" type="text" id="surname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Quispe" (input)="surnameValid = !formGroup.controls.surname.valid">
+                  @if(surnameValid){
+                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">Ingrese un nombre.</p>
+                  }
+              </div>
+              <div>
+                  <label for="id" class="block mb-2 text-sm font-medium text-gray-900">DNI</label>
+                  <input [maxLength]="8" formControlName="id" type="number" id="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="12345678" (input)="idValid = !formGroup.controls.id.valid">
+                  @if(idValid){
+                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">Ingrese un nombre.</p>
+                  }
+              </div>
+              <div>
+                  <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grado</label>
+                  <select formControlName="grade" id="grade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" (change)="gradeValid = !formGroup.controls.grade.valid">
                       <option value="" disabled selected>Selecciona un grado</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -37,23 +37,28 @@
                       <option value="6">6</option>
                   </select>
                   @if(gradeValid){
-                    <p id="standard_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400">Ingrese un nombre.</p>
+                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">Ingrese un nombre.</p>
                   }
               </div>
               <div>
-                  <label for="section" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sección</label>
-                  <select formControlName="section" id="section" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" (change)="sectionValid = !formGroup.controls.section.valid">
+                  <label for="section" class="block mb-2 text-sm font-medium text-gray-900">Sección</label>
+                  <select formControlName="section" id="section" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" (change)="sectionValid = !formGroup.controls.section.valid">
                       <option value="" disabled selected>Selecciona una sección</option>
                       <option value="A">A</option>
                       <option value="B">B</option>
                       <option value="C">C</option>
+                      <option value="C">D</option>
+                      <option value="C">E</option>
+                      <option value="C">F</option>
                   </select>
                   @if(sectionValid){
-                    <p id="standard_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400">Ingrese un nombre.</p>
+                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">Ingrese un nombre.</p>
                   }
               </div>
+              <div>
+                <button (click)="clickAdd()" type="submit" class="mt-6 w-full px py-2.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Guardar estudiante</button>
+              </div>
           </div>
-          <button (click)="clickAdd()" type="submit" class="mt-5 px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
       </form>
   </div>
 </section>
