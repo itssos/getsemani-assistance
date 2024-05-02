@@ -3,18 +3,21 @@
     <h5 class="text-center">Escanear código QR</h5>
     <div class="flex justify-center">
       <div id="btn-scan-qr">
-        <img src="../../../../assets/img/scanqr_icon.webp" class="w-48 m-auto">
+        <img src="../../../../assets/img/scanqr_icon.webp" class="w-72 m-auto">
       </div>
-      <canvas hidden id="qr-canvas" class="w-48"></canvas>
+      <canvas hidden id="qr-canvas" class="w-72"></canvas>
     </div>
     <div class="mx-5 my-3">
       <button id="toggle-camera" class="px-5 py-3 text-base font-medium text-center text-white bg-blue-700
                                         rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none
                                         focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Encender cámara</button>
+        <button id="switch-camera">Cambiar cámara</button>
       <div id="error-message"></div>
     </div>
   </div>
 </div>
+
+<!-- <zxing-scanner [formats]="['QR_CODE']"></zxing-scanner> -->
 
 <app-modal [title]="modalData.title" [description]="modalData.name + ' ' + modalData.surname" [img]="'https://cliply.co/wp-content/uploads/2021/03/372103860_CHECK_MARK_400px.gif'" ></app-modal>

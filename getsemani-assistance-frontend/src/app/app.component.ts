@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/component/navbar/navbar.component';
 import { initFlowbite } from 'flowbite';
@@ -11,10 +11,7 @@ import { initFlowbite } from 'flowbite';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'getsemani-assistance';
-
   ngOnInit(): void {
-    initFlowbite()
+    initFlowbite();
   }
-
 }

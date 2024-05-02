@@ -1,13 +1,13 @@
-import { AssistanceService } from '../../../core/service/assistance.service';
+import { AssistanceService } from '../../core/service/assistance.service';
 import { Component, ViewChild} from '@angular/core';
-import { QrCodeMainService } from '../../../core/service/qr-code-main.service';
-import { QrCodeIndexService } from '../../../core/service/qr-code-index.service';
+import { QrCodeMainService } from '../../core/service/qr-code-main.service';
+import { QrCodeIndexService } from '../../core/service/qr-code-index.service';
 import { CommonModule } from '@angular/common';
-import { ModalComponent } from '../modal/modal.component';
-import { StudentService } from '../../../core/service/student.service';
+import { ModalComponent } from '../../shared/component/modal/modal.component';
+import { StudentService } from '../../core/service/student.service';
 
 @Component({
-  selector: 'app-assistance',
+  selector: 'app-assistance-old',
   standalone: true,
   imports: [CommonModule, ModalComponent],
   templateUrl: './assistance.component.html',
@@ -31,7 +31,8 @@ export class AssistanceComponent {
   }
 
   ngOnInit(): void {
-    this.loadAllAssistance();
+    this._studentService.getStudentsByGradeAndSection("5","A");
+
   }
 
   loadAllAssistance(): void {

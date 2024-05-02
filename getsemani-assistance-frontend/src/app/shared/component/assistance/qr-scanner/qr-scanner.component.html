@@ -1,0 +1,30 @@
+
+<header>
+  <div>
+    <select (change)="onDeviceSelectChange($event)">
+      <option value="" [selected]="!currentDevice">No Device Selected</option>
+      @for (device of availableDevices; track device.deviceId) {
+        <option [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
+      }
+    </select>
+  </div>
+  <button>
+  </button>
+</header>
+
+<div class="w-96">
+  <zxing-scanner [enable]="scannerEnabled" [torch]="torchEnabled" [(device)]="currentDevice" (scanSuccess)="onCodeResult($event)"
+    [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
+    (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
+
+  <button (click)="toggleTorch()">LIGHT</button>
+  <button (click)="encender()">O</button>
+</div>
+<button mat-icon-button (click)="clearResult()">X</button>
+
+@if(qrResultString){
+  <section class="results">
+    <small>Result</small>
+    <strong>{{qrResultString}}</strong>
+  </section>
+}

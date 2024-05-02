@@ -8,21 +8,21 @@
                   <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
                   <input formControlName="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Pepito" (input)="nameValid = !formGroup.controls.name.valid">
                   @if(nameValid){
-                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">Ingrese un nombre.</p>
+                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Ingrese un nombre!</p>
                   }
               </div>
               <div>
                   <label for="surname" class="block mb-2 text-sm font-medium text-gray-900">Apellido</label>
                   <input formControlName="surname" type="text" id="surname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Quispe" (input)="surnameValid = !formGroup.controls.surname.valid">
                   @if(surnameValid){
-                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">Ingrese un nombre.</p>
+                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Ingrese un apellido!</p>
                   }
               </div>
               <div>
                   <label for="id" class="block mb-2 text-sm font-medium text-gray-900">DNI</label>
-                  <input [maxLength]="8" formControlName="id" type="number" id="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="12345678" (input)="idValid = !formGroup.controls.id.valid">
+                  <input min="10000000" max="99999999" formControlName="id" type="number" id="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="12345678" (input)="idValid = !formGroup.controls.id.valid">
                   @if(idValid){
-                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">Ingrese un nombre.</p>
+                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Ingrese un DNI! (8 digitos.)</p>
                   }
               </div>
               <div>
@@ -37,7 +37,7 @@
                       <option value="6">6</option>
                   </select>
                   @if(gradeValid){
-                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">Ingrese un nombre.</p>
+                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Seleccione un grado!</p>
                   }
               </div>
               <div>
@@ -52,7 +52,7 @@
                       <option value="C">F</option>
                   </select>
                   @if(sectionValid){
-                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">Ingrese un nombre.</p>
+                    <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Seleccione una sección!</p>
                   }
               </div>
               <div>
