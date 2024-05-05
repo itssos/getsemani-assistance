@@ -31,7 +31,7 @@ public class StudentController {
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{studentId}")
-    public ResponseEntity<Student> getStudentById(@PathVariable int studentId){
+    public ResponseEntity<Student> getStudentById(@PathVariable String studentId){
         return ResponseEntity.ok(studentService.getStudentById(studentId));
     }
 

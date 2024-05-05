@@ -20,7 +20,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student getStudentById(int id){
+    public Student getStudentById(String id){
         return studentRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 

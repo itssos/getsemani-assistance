@@ -14,6 +14,7 @@ export class QrScannerComponent {
   @ViewChild('scanner')
   scanner!: ZXingScannerComponent;
 
+  cameraShow = false;
 
   title = 'getsemani-assistance';
   scannerEnabled = false
@@ -46,6 +47,8 @@ export class QrScannerComponent {
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
     this.hasDevices = Boolean(devices && devices.length);
+    this.cameraShow = !this.cameraShow
+
   }
 
   onCodeResult(resultString: string) {
@@ -78,7 +81,10 @@ export class QrScannerComponent {
     this.tryHarder = !this.tryHarder;
   }
 
-  encender(){
-    this.scannerEnabled = true
+  onCamera(){
+    this.scannerEnabled = !this.scannerEnabled
+    if(this.scannerEnabled){
+      this.cameraShow = false
+    }
   }
 }
