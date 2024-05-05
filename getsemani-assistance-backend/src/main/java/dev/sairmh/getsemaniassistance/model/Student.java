@@ -1,15 +1,13 @@
 package dev.sairmh.getsemaniassistance.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "students")
+@Table(name = "student")
 @Data
 public class Student {
     @Id
@@ -28,13 +26,16 @@ public class Student {
     @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ ]+$", message = "The surname must contain only letters.")
     private String surname;
 
-    @NotBlank(message = "The grade cannot be blank.")
-    @Size(max = 1, message = "The grade must be a single digit.")
-    @Pattern(regexp = "^[0-9]$", message = "The grade should not have letters.")
-    private String grade;
+    @ManyToOne
+    @JoinColumn(name = "id_grade")
+    private Grade grade;
 
-    @NotBlank(message = "The section cannot be blank.")
-    @Size(max = 1, message = "The section must be a single character.")
-    @Pattern(regexp = "^[a-zA-Z]$", message = "The section must contain only one letter.")
-    private String section;
+    @ManyToOne
+    @JoinColumn(name = "id_section")
+    private Section section;
+
+    @NotBlank(message = "The state cannot be blank.")
+    @Size(max = 16, message = "The surname must not exceed 16 characters.")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ ]+$", message = "The surname must contain only letters.")
+    private String state;
 }

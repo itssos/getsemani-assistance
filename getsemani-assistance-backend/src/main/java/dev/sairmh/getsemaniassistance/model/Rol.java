@@ -4,13 +4,16 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 import java.util.Set;
-
+@Entity
+@Table(name = "rol")
+@Data
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
 
     @NotBlank(message = "The name cannot be blank.")
     @Size(max = 100, message = "The name must not exceed 100 characters.")

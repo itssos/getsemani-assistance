@@ -1,17 +1,15 @@
 package dev.sairmh.getsemaniassistance.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "school_assistant")
+@Table(name = "user")
 @Data
-public class SchoolAssistant {
+public class User {
     @Id
     @NotBlank(message = "The dni cannot be blank.")
     @Size(min = 8, max = 8, message = "The dni must be exactly 8 digits.")
@@ -30,5 +28,9 @@ public class SchoolAssistant {
 
     @NotBlank(message = "The surname cannot be blank.")
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "id_rol")
+    private Rol rol;
 
 }

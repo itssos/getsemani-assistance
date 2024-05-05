@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, String>{
-    List<Student> findByGradeAndSection(String grade, String section);
+    //List<Student> findByGradeAndSection(String grade, String section);
 }

@@ -24,9 +24,9 @@ public class StudentService {
         return studentRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
-    public List<Student> getStudentsByGradeAndSection(String grade, String section) {
-        return studentRepository.findByGradeAndSection(grade,section);
-    }
+//    public List<Student> getStudentsByGradeAndSection(String grade, String section) {
+//        return studentRepository.findByGradeAndSection(grade,section);
+//    }
 
     public Student create(Student student){
         return studentRepository.save(student);

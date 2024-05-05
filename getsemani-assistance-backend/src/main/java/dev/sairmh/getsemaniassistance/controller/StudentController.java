@@ -35,11 +35,11 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getStudentById(studentId));
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("/{grade}/{section}")
-    public ResponseEntity<List<Student>> getStudentById(@PathVariable String grade, @PathVariable String section){
-        return ResponseEntity.ok(studentService.getStudentsByGradeAndSection(grade, section));
-    }
+//    @CrossOrigin(origins = "*", allowedHeaders = "*")
+//    @GetMapping("/{grade}/{section}")
+//    public ResponseEntity<List<Student>> getStudentById(@PathVariable String grade, @PathVariable String section){
+//        return ResponseEntity.ok(studentService.getStudentsByGradeAndSection(grade, section));
+//    }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<Student> create(@Valid @RequestBody Student student){
