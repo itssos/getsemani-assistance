@@ -1,16 +1,15 @@
 <div
-  class="min-w-screen min-h-screen bg-slate-200 flex justify-center items-center"
->
-  <div class="rounded-3xl overflow-hidden shadow-xl mx-14">
+  class="min-w-screen min-h-screen bg-slate-200 flex justify-center items-center" 
+><!--flex justify-center items-center-->
+  <div class="overflow-hidden md:{first-letter:mx-14 rounded-3xl shadow-xl}">
     <!--DOS COLUMNAS-->
     <div
-      class="grid grid-cols-1 sm:grid-cols-2"
-      style="max-height: 40rem; min-height: 39rem"
-    >
+      class="grid grid-cols-1 sm:grid-cols-2 min-h-screen md-onecolumn"
+    ><!--grid grid-cols-1-->
       <!--PRIMERA COLUMNA-->
       <div class="bg-white p-9 hidden md:block">
         <div
-          class="bg-gradient-to-br from-sky-600 to-sky-200 rounded-3xl px-16 py-10"
+          class="bg-gradient-to-br from-sky-800 to-sky-200 rounded-3xl px-16 py-10"
           style="max-width: 28rem; max-height: 45rem"
         >
           <div class="flex flex-col items-center justify-center text-left">
@@ -28,7 +27,7 @@
             />
           </div>
         </div>
-      </div>
+      </div><!--PRIMERA COLUMNA-->
       <!--SEGUNDA COLUMNA-->
       <div class="flex flex-col justify-center items-center bg-white p-10">
         <div
@@ -66,16 +65,16 @@
           </div>
           <button
             type="submit"
-            class="block w-full bg-indigo-600 mt-4 py-3 rounded-2xl text-white font-semibold mb-2"
+            class="block w-full bg-sky-600 mt-4 py-3 rounded-2xl text-white font-semibold mb-2"
           >
-            Login
+            Iniciar Sesión
           </button>
           <span
             class="text-sm ml-2 hover:text-blue-500 cursor-pointer flex justify-end text-gray-400"
             >Forgot Password ?</span
           >
         </form>
-      </div>
+      </div><!--SEGUNDA COLUMNA-->
     </div>
   </div>
 </div>

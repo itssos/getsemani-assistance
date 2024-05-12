@@ -1,7 +1,16 @@
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
-    box-sizing: border-box !important; 
+  box-sizing: border-box !important;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit !important;
+}
+
+@media (min-width: 768px) {
+  .md-onecolumn {
+    max-height: 40rem;
+    min-height: 39rem;
   }
-  *, *:before, *:after {
-    box-sizing: inherit !important;
-  }
+}
