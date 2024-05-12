@@ -27,8 +27,4 @@ public class GradeController {
         System.out.println("AQUI ESTA EL GRADE: "+grade);
         return new ResponseEntity<>(gradeService.create(grade), HttpStatus.CREATED);
     }
-//    @PostMapping
-//    public void create(@RequestBody Grade grade){
-//        System.out.println("AQUI ESTA EL GRADE: "+grade.getName());
-//    }
 }

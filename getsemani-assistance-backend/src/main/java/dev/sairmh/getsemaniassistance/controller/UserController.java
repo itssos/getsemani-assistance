@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api_old/user")
 public class UserController {
-    @Autowired
-    private UserService userService;
-
-    @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user){
-        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
-    }
+//    @Autowired
+//    private UserService userService;
+//
+//    @PostMapping
+//    public ResponseEntity<User> create(@RequestBody User user){
+//        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
+//    }
 
 }
