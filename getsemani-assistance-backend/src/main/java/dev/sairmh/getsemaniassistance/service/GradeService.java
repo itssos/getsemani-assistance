@@ -20,4 +20,22 @@ public class GradeService {
         return gradeRepository.save(grade);
     }
 
+    public Grade getGradeById(Integer id){
+        return gradeRepository.findById(id).orElse(null);
+    }
+    //aquí iría actualizar, agregar dos métodos para ver como funcionaría
+
+    public Grade update(Integer id, Grade updatedGrade){
+        Grade existingGrade = gradeRepository.findById(id).orElse(null);
+        if(existingGrade != null){
+            existingGrade.setName(updatedGrade.getName());
+            // Aquí podrías actualizar otros campos si es necesario
+            return gradeRepository.save(existingGrade);
+        }
+        return null; // Retorna null si el grado no existe
+    }
+    //eliminar Grado
+    public void deleteGrade(Integer id){
+        gradeRepository.deleteById(id);
+    }
 }
