@@ -1,10 +1,10 @@
 <div
   class="min-w-screen min-h-screen bg-slate-200 flex justify-center items-center" 
 ><!--flex justify-center items-center-->
-  <div class="overflow-hidden md:{first-letter:mx-14 rounded-3xl shadow-xl}">
+  <div class="overflow-hidden md:first-letter:mx-14 md:rounded-3xl md:shadow-xl">
     <!--DOS COLUMNAS-->
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 min-h-screen md-onecolumn"
+      class="flex min-h-screen md-onecolumn md:grid md:grid-cols-2"
     ><!--grid grid-cols-1-->
       <!--PRIMERA COLUMNA-->
       <div class="bg-white p-9 hidden md:block">
@@ -29,7 +29,7 @@
         </div>
       </div><!--PRIMERA COLUMNA-->
       <!--SEGUNDA COLUMNA-->
-      <div class="flex flex-col justify-center items-center bg-white p-10">
+      <div class="flex flex-col justify-center items-center w-screen md:w-auto bg-white p-10">
         <div
           class="flex items-center justify-center gap-x-4 font-bold text-2xl mb-5"
         >
@@ -46,7 +46,7 @@
             Please login to your account
           </p>
         </div>
-        <form class="bg-white w-96">
+        <form class="bg-white w-80 sm:w-96 md:w-80 lg:w-96">
           <div class="space-y-2">
             
             <input
