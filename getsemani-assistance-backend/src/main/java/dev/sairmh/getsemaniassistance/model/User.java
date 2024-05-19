@@ -4,12 +4,21 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 @Data
-public class User {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class User{
     @Id
     @NotBlank(message = "The dni cannot be blank.")
     @Size(min = 8, max = 8, message = "The dni must be exactly 8 digits.")
@@ -33,4 +42,33 @@ public class User {
     @JoinColumn(name = "id_rol")
     private Rol rol;
 
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return List.of(new SimpleGrantedAuthority(rol.getName()));
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return id;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return true;
+//    }
 }
