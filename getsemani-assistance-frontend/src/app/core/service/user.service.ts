@@ -18,6 +18,9 @@ export class UserService{
     public getAllUser():Observable<IUser[]>{
         return this._httpClient.get<IUser[]>(this.apiUserUrl)
     }
+    public getIdUser(id: string):Observable<IUser[]>{
+      return this._httpClient.get<IUser[]>(`${this.apiUserUrl}/${id}`);
+    }
     public createUser(user: IUser):Observable<IUser>{
         return this._httpClient.post<IUser>(`${this.apiUserUrl}`,user).pipe(
             catchError((error: HttpErrorResponse) => {

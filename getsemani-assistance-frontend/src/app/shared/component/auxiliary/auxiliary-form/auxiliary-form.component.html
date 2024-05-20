@@ -27,7 +27,7 @@
         </div>
       </div>
   
-      <form class="max-w-sm mx-auto">
+      <form [formGroup]="formGroup" class="max-w-sm mx-auto">
         <div class="mb-5">
           <label
             for="nombre"
@@ -36,11 +36,15 @@
           >
           <input
             type="text"
-            id="text"
+            id="name"
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             placeholder="name"
+            formControlName="name"
             required
           />
+          @if(nameValid){
+            <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Ingrese un nombre!</p>
+          }
         </div>
         <div class="mb-5">
           <label
@@ -50,11 +54,15 @@
           >
           <input
             type="text"
-            id="apellido"
+            id="surname"
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             placeholder="last name"
+            formControlName="surname"
             required
           />
+          @if(surnameValid){
+            <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Ingrese un apellido!</p>
+          }
         </div>
         <div class="mb-5">
           <label
@@ -63,12 +71,16 @@
             >DNI</label
           >
           <input
-            type="number"
-            id="number"
+            type="text"
+            id="id"
             placeholder="dni"
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            formControlName="id"
             required
           />
+          @if(idValid){
+            <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Ingrese un DNI!</p>
+          }
         </div>
   
         <div class="mb-5">
@@ -78,12 +90,14 @@
             >Seleccione rol</label
           >
           <select
-            id="rol"
+            id="id_rol"
+            formControlName="id_rol"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option selected disabled>-- Seleccione --</option>
-            <option>Administrador</option>
-            <option>Auxiliar</option>
+             @for(rol of roles;track rol.id){ 
+            <option value={{rol.id}}>{{rol.name}}</option>
+           }
           </select>
         </div>
   
@@ -96,6 +110,9 @@
               class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
               required
             />
+            @if(rolValid){
+              <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Seleccione un rol!</p>
+            }
           </div>
           <label
             for="terms"
@@ -106,7 +123,7 @@
             ></label
           >
         </div>
-        <button
+        <button (click)="clickAdd()"
           type="submit"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
@@ -114,5 +131,6 @@
         </button>
       </form>
     </div>
+   
   </div>
   

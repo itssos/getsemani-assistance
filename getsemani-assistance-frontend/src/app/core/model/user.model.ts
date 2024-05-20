@@ -3,5 +3,5 @@ export interface IUser {
     name:    string;
     surname: string;
     password: string;
-    id_rol: number;
+    rol: { id: number };
 }
