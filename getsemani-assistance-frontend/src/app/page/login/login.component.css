@@ -1,0 +1,8 @@
+
+
+@media (min-width: 768px) {
+  .md-onecolumn {
+    max-height: 40rem;
+    min-height: 39rem;
+  }
+}
