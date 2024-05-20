@@ -19,13 +19,14 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public User create(User user){
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
+//        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+//        user.setPassword(encryptedPassword);
         return userRepository.save(user);
     }
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
+
     public User updateUser(String id, User updatedUser){
         User existingUser = userRepository.findById(id).orElse(null);
         if(existingUser != null){
@@ -39,5 +40,7 @@ public class UserService {
     public void deleteUser(String id){
         userRepository.deleteById(id);
     }
-
+    public User getGradeById(String id){
+        return userRepository.findById(id).orElse(null);
+    }
 }

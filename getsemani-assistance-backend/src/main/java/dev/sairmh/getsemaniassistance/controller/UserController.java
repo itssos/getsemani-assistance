@@ -1,5 +1,6 @@
 package dev.sairmh.getsemaniassistance.controller;
 
+import dev.sairmh.getsemaniassistance.model.Grade;
 import dev.sairmh.getsemaniassistance.model.Student;
 import dev.sairmh.getsemaniassistance.model.User;
 import dev.sairmh.getsemaniassistance.service.UserService;
@@ -25,11 +26,13 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUser());
     }
     //crear
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<User> create(@Valid @RequestBody User user){
         return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
     }
+
     //editar
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable String id, @Valid @RequestBody User user){
@@ -41,6 +44,16 @@ public class UserController {
     public ResponseEntity<Void> deleteGrade(@PathVariable String id){
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getGradeById(@PathVariable String id){
+        User user = userService.getGradeById(id);
+        if (user != null){
+            return ResponseEntity.ok(user);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

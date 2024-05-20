@@ -39,7 +39,7 @@ public class User{
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "id_rol")
+    @JoinColumn(name= "id_rol")
     private Rol rol;
 
 //    @Override

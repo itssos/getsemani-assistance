@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 @Entity
 @Table(name = "rol")
@@ -28,4 +29,6 @@ public class Rol {
     )
     private Set<Permission> permissions;
 
+    @OneToMany(mappedBy="rol")
+    private Set<User> users;
 }
