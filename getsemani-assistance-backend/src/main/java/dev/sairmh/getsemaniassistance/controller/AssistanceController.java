@@ -20,10 +20,18 @@ public class AssistanceController {
     public ResponseEntity<List<Assistance>> getAllAssistance(){
         return ResponseEntity.ok(assistanceService.getAllAssistance());
     }
+    // ORIGINAL
+//    @CrossOrigin(origins = "*", allowedHeaders = "*")
+//    @PostMapping
+//    public ResponseEntity<Assistance> create(@RequestBody Assistance assistance){
+//        return new ResponseEntity<>(assistanceService.create(assistance), HttpStatus.CREATED);
+//    }
+
+    // PRUEBA
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<Assistance> create(@RequestBody Assistance assistance){
-        return new ResponseEntity<>(assistanceService.create(assistance), HttpStatus.CREATED);
+        return  new ResponseEntity<>(assistanceService.create(assistance), HttpStatus.CREATED);
     }
 
 }
