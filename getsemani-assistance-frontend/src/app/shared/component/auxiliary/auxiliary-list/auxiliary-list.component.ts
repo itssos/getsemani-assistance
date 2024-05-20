@@ -3,6 +3,8 @@ import { UserService } from '../../../../core/service/user.service';
 import { RolService } from '../../../../core/service/rol.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUser } from '../../../../core/model/user.model';
+import { SweetAlert } from '../../../../core/service/sweetAlert.service';
+
 @Component({
   selector: 'app-auxiliary-list',
   standalone: true,
@@ -11,10 +13,8 @@ import { IUser } from '../../../../core/model/user.model';
   styleUrl: './auxiliary-list.component.css'
 })
 export class AuxiliaryListComponent implements OnInit {
-  private userService=inject(UserService);
-  private rolService=inject(RolService);
-
-  constructor(private _formBuilder: FormBuilder){};
+  constructor(private _formBuilder: FormBuilder,private _userService:UserService,private _rolService:RolService
+    ,private _sweetAlert:SweetAlert){}
 
   users:any []=[]
   roles:any []=[]
@@ -32,20 +32,21 @@ export class AuxiliaryListComponent implements OnInit {
     password: '',
     rol: { id: 0 }
   }
-
+  
   listRol():void{
-    this.rolService.getAllRol().subscribe((roles:any) => 
+    this._rolService.getAllRol().subscribe((roles:any) => 
       this.roles=roles);
   }
   ngOnInit(): void {
-    this.userService.getAllUser().subscribe((users:any) => 
+    this._userService.getAllUser().subscribe((users:any) => 
     this.users=users);
     this.listRol();
   }
   deleteUser(confirmacion: boolean) {
     if (confirmacion && this.selectedId !== null) {
-      this.userService.deleteUser(this.selectedId).subscribe(() => {
+      this._userService.deleteUser(this.selectedId).subscribe(() => {
         this.ngOnInit();
+        this._sweetAlert.alertDeleted();
       }, error => {
         console.error('Error al eliminar usuario:', error);
       });
@@ -54,7 +55,7 @@ export class AuxiliaryListComponent implements OnInit {
   }
   us: any = {};
   obtener(id: string){
-    this.userService.getIdUser(id).subscribe((user: any) => {
+    this._userService.getIdUser(id).subscribe((user: any) => {
       console.log('Datos del usuario obtenidos:', user);
       // Asignar los datos obtenidos al formulario
       this.us=user;
@@ -79,12 +80,14 @@ export class AuxiliaryListComponent implements OnInit {
       this.newUser.id=this.us.id;
       this.newUser.password=this.us.password;
       console.log(this.newUser);
-      this.userService.updateUser(this.us.id, this.newUser).subscribe(() => {
+      this._userService.updateUser(this.us.id, this.newUser).subscribe(() => {
         console.log('Usuario actualizado correctamente');
         // Actualizar la lista de usuarios después de la actualización
         this.ngOnInit();
-        // Limpiar el formulario después de la actualización
+        const closeButton = document.getElementById('closeButton');
+        closeButton?.click();
         this.formGroup.reset();
+        this._sweetAlert.alertUpdate();
       }, error => {
         console.error('Error al actualizar usuario:', error);
       });
@@ -100,7 +103,7 @@ export class AuxiliaryListComponent implements OnInit {
   }
   fieldValidations: { [key: string]: string } = {
     name: 'nameValid',
-    apellido: 'surnameValid',
+    surname: 'surnameValid',
     id_rol: 'rolValid'
   };
 
@@ -116,5 +119,10 @@ export class AuxiliaryListComponent implements OnInit {
         (this as any)[validationProperty] = control.invalid;
       }
     });
+  }
+  resetValidations() {
+    this.nameValid = false;
+    this.surnameValid = false;
+    this.rolValid = false;
   }
 }
