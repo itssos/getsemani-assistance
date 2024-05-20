@@ -1,65 +1,66 @@
-<div class="px-4 mx-auto max-w-md py-8">
-
-  <div>
+<div class="p-4 md:ml-64 h-auto pt-20">  
+  <div class="px-4 mx-auto max-w-md py-8 pt-28">
     <div>
-      <select (change)="onDeviceSelectChange($event)"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-        @for (device of availableDevices; track device.deviceId) {
-        <option [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">
-          {{device.label}}</option>
-        }
-      </select>
-    </div>
-  </div>
-
-  <div class="items-center justify-center w-full max-h-80 mx-auto mt-4 mb-4 rounded-xl bg-gray-100 overflow-hidden">
-    @if(scannerEnabled){
-      @if (!cameraShow) {
-        <div class="fixed mx-auto my-auto">
-            <svg aria-hidden="true" class="w-16 text-gray-200 animate-spin fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/></svg>
-        </div>
-      }
-
-
-      <div class="block">
-        <zxing-scanner [enable]="scannerEnabled" [torch]="torchEnabled" [(device)]="currentDevice"
-            (scanSuccess)="onCodeResult($event)" [formats]="formatsEnabled" [tryHarder]="tryHarder"
-            (permissionResponse)="onHasPermission($event)" (camerasFound)="onCamerasFound($event)"
-            (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
+      <div>
+        <select (change)="onDeviceSelectChange($event)"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          @for (device of availableDevices; track device.deviceId) {
+          <option [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">
+            {{device.label}}</option>
+          }
+        </select>
       </div>
-    }@else{
-      <img class="w-60 mx-auto" src="../../../../../assets/img/scanqr_icon.webp" alt="Descripción de la imagen">
+    </div>
+
+    <div class="items-center justify-center w-full max-h-80 mx-auto mt-4 mb-4 rounded-xl bg-gray-100 overflow-hidden">
+      @if(scannerEnabled){
+        @if (!cameraShow) {
+          <div class="fixed mx-auto my-auto">
+              <svg aria-hidden="true" class="w-16 text-gray-200 animate-spin fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/></svg>
+          </div>
+        }
+
+
+        <div class="block">
+          <zxing-scanner [enable]="scannerEnabled" [torch]="torchEnabled" [(device)]="currentDevice"
+              (scanSuccess)="onCodeResult($event)" [formats]="formatsEnabled" [tryHarder]="tryHarder"
+              (permissionResponse)="onHasPermission($event)" (camerasFound)="onCamerasFound($event)"
+              (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
+        </div>
+      }@else{
+        <img class="w-60 mx-auto" src="../../../../../assets/img/scanqr_icon.webp" alt="Descripción de la imagen">
+      }
+    </div>
+
+    <div class="flex mx-auto justify-center">
+      <button
+        class="text-white transition-all ease-out active:scale-110 bg-yellow-300 hover:bg-yellow-400 focus:ring-yellow-300 font-medium rounded-lg text-sm mr-10 px-2.5 py-2.5 me-2 mb-2"
+        (click)="toggleTorch()">
+        <svg class="w-8" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M4.07572 6.46984L4.5707 6.54056V6.54056L4.07572 6.46984ZM4.06567 6.5402L3.5707 6.46949L3.5707 6.46949L4.06567 6.5402ZM10.9242 6.46985L11.4192 6.39914V6.39914L10.9242 6.46985ZM10.9343 6.54021L10.4393 6.61091V6.61092L10.9343 6.54021ZM9.5 12.5V13C9.77614 13 10 12.7761 10 12.5H9.5ZM5.5 12.5H5C5 12.7761 5.22386 13 5.5 13V12.5ZM4.75549 9.15291L5.15088 8.84687L4.75549 9.15291ZM10.2445 9.15289L9.8491 8.84686L10.2445 9.15289ZM6 15H9V14H6V15ZM3.58075 6.39913L3.5707 6.46949L4.56064 6.61091L4.5707 6.54056L3.58075 6.39913ZM7.49998 3C5.52977 3 3.85938 4.44872 3.58075 6.39913L4.5707 6.54056C4.77895 5.08279 6.02742 4 7.49998 4V3ZM11.4192 6.39914C11.1406 4.44873 9.4702 3 7.49998 3V4C8.97255 4 10.221 5.0828 10.4293 6.54056L11.4192 6.39914ZM11.4293 6.4695L11.4192 6.39914L10.4293 6.54056L10.4393 6.61091L11.4293 6.4695ZM10.6399 9.45893C11.2696 8.64541 11.5885 7.58397 11.4293 6.46949L10.4393 6.61092C10.5585 7.44543 10.3209 8.23729 9.8491 8.84686L10.6399 9.45893ZM9 10.9013V12.5H10V10.9013H9ZM9.5 12H5.5V13H9.5V12ZM6 12.5V10.9013H5V12.5H6ZM3.5707 6.46949C3.41148 7.58398 3.73042 8.64543 4.36009 9.45895L5.15088 8.84687C4.67907 8.2373 4.44143 7.44544 4.56064 6.61091L3.5707 6.46949ZM6 10.9013C6 10.0775 5.56209 9.37814 5.15088 8.84687L4.36009 9.45895C4.74345 9.95426 5 10.427 5 10.9013H6ZM9.8491 8.84686C9.4379 9.37813 9 10.0775 9 10.9013H10C10 10.427 10.2565 9.95423 10.6399 9.45893L9.8491 8.84686ZM7 0V2H8V0H7ZM0 8H2V7H0V8ZM13 8H15V7H13V8ZM3.35355 3.64645L1.85355 2.14645L1.14645 2.85355L2.64645 4.35355L3.35355 3.64645ZM12.3536 4.35355L13.8536 2.85355L13.1464 2.14645L11.6464 3.64645L12.3536 4.35355Z"
+            fill="#000000" />
+        </svg>
+      </button>
+      <button
+        class="text-white transition-all ease-out active:scale-110 bg-lime-500 hover:bg-lime-600 focus:ring-green-300 font-medium rounded-lg text-sm px-2.5 py-2.5 me-2 mb-2"
+        (click)="onCamera()">
+        <svg class="w-8" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 0a1 1 0 00-1 1v6a1 1 0 002 0V1a1 1 0 00-1-1z" fill="#000000"/>
+          <path d="M12.665 2.781a1 1 0 10-1.333 1.491 5 5 0 11-6.665.001 1 1 0 00-1.333-1.49 7 7 0 109.331-.002z" fill="#000000"/>
+        </svg>
+      </button>
+
+    </div>
+    <button
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
+    (click)="clearResult()">Borrar resultado</button>
+
+    @if(qrResultString){
+    <section class="results">
+      <small>Result</small>
+      <strong>{{qrResultString}}</strong>
+    </section>
     }
   </div>
-
-  <div class="flex mx-auto justify-center">
-    <button
-      class="text-white transition-all ease-out active:scale-110 bg-yellow-300 hover:bg-yellow-400 focus:ring-yellow-300 font-medium rounded-lg text-sm mr-10 px-2.5 py-2.5 me-2 mb-2"
-      (click)="toggleTorch()">
-      <svg class="w-8" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M4.07572 6.46984L4.5707 6.54056V6.54056L4.07572 6.46984ZM4.06567 6.5402L3.5707 6.46949L3.5707 6.46949L4.06567 6.5402ZM10.9242 6.46985L11.4192 6.39914V6.39914L10.9242 6.46985ZM10.9343 6.54021L10.4393 6.61091V6.61092L10.9343 6.54021ZM9.5 12.5V13C9.77614 13 10 12.7761 10 12.5H9.5ZM5.5 12.5H5C5 12.7761 5.22386 13 5.5 13V12.5ZM4.75549 9.15291L5.15088 8.84687L4.75549 9.15291ZM10.2445 9.15289L9.8491 8.84686L10.2445 9.15289ZM6 15H9V14H6V15ZM3.58075 6.39913L3.5707 6.46949L4.56064 6.61091L4.5707 6.54056L3.58075 6.39913ZM7.49998 3C5.52977 3 3.85938 4.44872 3.58075 6.39913L4.5707 6.54056C4.77895 5.08279 6.02742 4 7.49998 4V3ZM11.4192 6.39914C11.1406 4.44873 9.4702 3 7.49998 3V4C8.97255 4 10.221 5.0828 10.4293 6.54056L11.4192 6.39914ZM11.4293 6.4695L11.4192 6.39914L10.4293 6.54056L10.4393 6.61091L11.4293 6.4695ZM10.6399 9.45893C11.2696 8.64541 11.5885 7.58397 11.4293 6.46949L10.4393 6.61092C10.5585 7.44543 10.3209 8.23729 9.8491 8.84686L10.6399 9.45893ZM9 10.9013V12.5H10V10.9013H9ZM9.5 12H5.5V13H9.5V12ZM6 12.5V10.9013H5V12.5H6ZM3.5707 6.46949C3.41148 7.58398 3.73042 8.64543 4.36009 9.45895L5.15088 8.84687C4.67907 8.2373 4.44143 7.44544 4.56064 6.61091L3.5707 6.46949ZM6 10.9013C6 10.0775 5.56209 9.37814 5.15088 8.84687L4.36009 9.45895C4.74345 9.95426 5 10.427 5 10.9013H6ZM9.8491 8.84686C9.4379 9.37813 9 10.0775 9 10.9013H10C10 10.427 10.2565 9.95423 10.6399 9.45893L9.8491 8.84686ZM7 0V2H8V0H7ZM0 8H2V7H0V8ZM13 8H15V7H13V8ZM3.35355 3.64645L1.85355 2.14645L1.14645 2.85355L2.64645 4.35355L3.35355 3.64645ZM12.3536 4.35355L13.8536 2.85355L13.1464 2.14645L11.6464 3.64645L12.3536 4.35355Z"
-          fill="#000000" />
-      </svg>
-    </button>
-    <button
-      class="text-white transition-all ease-out active:scale-110 bg-lime-500 hover:bg-lime-600 focus:ring-green-300 font-medium rounded-lg text-sm px-2.5 py-2.5 me-2 mb-2"
-      (click)="onCamera()">
-      <svg class="w-8" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 0a1 1 0 00-1 1v6a1 1 0 002 0V1a1 1 0 00-1-1z" fill="#000000"/>
-        <path d="M12.665 2.781a1 1 0 10-1.333 1.491 5 5 0 11-6.665.001 1 1 0 00-1.333-1.49 7 7 0 109.331-.002z" fill="#000000"/>
-      </svg>
-    </button>
-
-  </div>
-  <button
-  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
-  (click)="clearResult()">Borrar resultado</button>
-
-  @if(qrResultString){
-  <section class="results">
-    <small>Result</small>
-    <strong>{{qrResultString}}</strong>
-  </section>
-  }
 </div>
