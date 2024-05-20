@@ -24,7 +24,11 @@ public class GradeController {
 
     @PostMapping
     public ResponseEntity<Grade> create(@Valid @RequestBody Grade grade){
-        System.out.println("AQUI ESTA EL GRADE: "+grade);
         return new ResponseEntity<>(gradeService.create(grade), HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<Grade> update(@Valid @RequestBody Grade grade){
+        return ResponseEntity.ok(gradeService.update(grade));
     }
 }

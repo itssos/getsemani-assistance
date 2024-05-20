@@ -2,6 +2,7 @@ package dev.sairmh.getsemaniassistance.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -23,6 +24,10 @@ public class Assistance {
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime date = LocalDateTime.now();
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 
     @NotBlank(message = "The state cannot be blank.")
     @Size(max = 16, message = "The surname must not exceed 16 characters.")

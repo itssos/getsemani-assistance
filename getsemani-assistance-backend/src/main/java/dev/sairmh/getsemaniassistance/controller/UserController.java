@@ -7,16 +7,28 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("/api_old/user")
+@RequestMapping("/api/user")
 public class UserController {
-//    @Autowired
-//    private UserService userService;
-//
-//    @PostMapping
-//    public ResponseEntity<User> create(@RequestBody User user){
-//        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
-//    }
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getById(@PathVariable String id){
+        return ResponseEntity.ok(userService.getById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> getAll(){
+        return ResponseEntity.ok(userService.getAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<User> create(@RequestBody User user){
+        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
+    }
 
 }

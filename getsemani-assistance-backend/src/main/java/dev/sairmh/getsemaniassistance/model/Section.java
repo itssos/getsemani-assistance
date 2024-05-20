@@ -1,5 +1,6 @@
 package dev.sairmh.getsemaniassistance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -14,8 +15,8 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank(message = "The name cannot be blank.")
-    @Size(max = 100, message = "The name must not exceed 100 characters.")
+    @NotBlank(message = "The section cannot be blank.")
+    @Size(min = 1, max = 1, message = "The section must be only 1 character.")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "The section must contain only letters.")
     private String name;
-
 }

@@ -17,9 +17,19 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.NOT_FOUND.value());
         body.put("error", "Not Found");
-        String path = request.getDescription(false);
-        // Remover "uri=" del inicio del path si está presente
-        path = path.replace("uri=", "");
+        String path = request.getDescription(false).replace("uri=", "");
+        body.put("path", path);
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ResponseEntity<Object> handleStudentNotFoundException(StudentNotFoundException ex, WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.NOT_FOUND.value());
+        body.put("error", "Student Not Found");
+        body.put("message", ex.getMessage());
+        String path = request.getDescription(false).replace("uri=", "");
         body.put("path", path);
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
