@@ -35,12 +35,37 @@ export class SweetAlert {
       text: 'La operación se completó con éxito.'
     });
   }
+
+
   successAssistance(assistance: IAssistance) {
     Swal.fire({
       icon: 'success',
       title: '¡Asistencia registrada!',
       text: `${assistance.student.surname} ${assistance.student.name}`,
       timer: 1000,
+      showConfirmButton: false
+    });
+  }
+  notFoundStudentById(){
+    Swal.fire({
+      icon: 'error',
+      title: '¡Error!',
+      text: 'No existe ese Estudiante',
+      toast: true,
+      position: 'top-end',
+      timer: 1500,
+      showConfirmButton: false
+    });
+  }
+
+  fileNotStructureValid(){
+    Swal.fire({
+      icon: 'error',
+      title: '¡Invalido!',
+      text: 'El archivo no contiene la estructura requerida.',
+      toast: true,
+      position: 'top-end',
+      timer: 1500,
       showConfirmButton: false
     });
   }

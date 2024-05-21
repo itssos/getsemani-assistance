@@ -5,16 +5,16 @@ import * as ExcelJS from 'exceljs'
 import { saveAs } from 'file-saver';
 import { IStudent } from '../../../../core/model/student.model'
 import { StudentService } from '../../../../core/service/student.service'
-import { ModalComponent } from '../../modal/modal.component';
 import { IStudentBackend } from '../../../../core/model/student_backend.model';
 import { GradeService } from '../../../../core/service/grade.service';
 import { SectionService } from '../../../../core/service/section.service';
 import { EducationLevelService } from '../../../../core/service/education_level.service';
+import { SweetAlert } from '../../../../core/service/sweetAlert.service';
 
 @Component({
   selector: 'app-file-upload',
   standalone: true,
-  imports: [ModalComponent],
+  imports: [],
   templateUrl: './student-excel.component.html',
   styleUrl: './student-excel.component.css'
 })
@@ -24,7 +24,8 @@ export class FileUploadComponent {
     private _studentService: StudentService,
     private _gradeService: GradeService,
     private _sectionService: SectionService,
-    private _educationLevelService: EducationLevelService
+    private _educationLevelService: EducationLevelService,
+    private _sweetAlert: SweetAlert
   ) { }
 
   studentList: IStudent[] = []
@@ -32,7 +33,6 @@ export class FileUploadComponent {
   isValidFile = false
   isValidData = true
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>
-  @ViewChild(ModalComponent, { static: false }) modalComponent: ModalComponent | null = null;
 
   onFileChange(event: any): void {
     const file = event.target.files[0]
@@ -69,7 +69,7 @@ export class FileUploadComponent {
       workbook.eachSheet((worksheet, sheetId) => {
         const firstRow = worksheet.getRow(1)
         const headers = firstRow.values as string[]
-
+        const expectedHeaders = ['APELLIDOS', 'NOMBRES', 'DNI', 'GRADO', 'SECCION', 'NIVEL_EDUCACION']
         const headerMapping: { [key: string]: string } = {
           'APELLIDOS': 'surname',
           'NOMBRES': 'name',
@@ -77,6 +77,15 @@ export class FileUploadComponent {
           'GRADO': 'grade',
           'SECCION': 'section',
           'NIVEL_EDUCACION': 'education_level'
+        }
+
+        const headersMatch = expectedHeaders.every((header, index) =>header === headers[index+1])
+
+        if (!headersMatch) {
+          this.fileInput.nativeElement.value = ""
+          this.studentList = []
+          this._sweetAlert.fileNotStructureValid()
+          return
         }
 
         worksheet.eachRow({ includeEmpty: false }, (row, rowIndex) => {
@@ -94,6 +103,8 @@ export class FileUploadComponent {
         })
       })
       this.studentList = jsonData
+    }).catch(error => {
+      console.error('Error al leer el archivo Excel', error)
     })
   }
 
@@ -133,7 +144,7 @@ export class FileUploadComponent {
           .subscribe({
             next: (data: IStudentBackend[]) => {
               this.isLoadingTable = false;
-              this.openModal();
+              this._sweetAlert.showAlert()
               this.removeFileFromInput();
             },
             error: (err) => {
@@ -161,12 +172,6 @@ export class FileUploadComponent {
       const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       saveAs(blob, 'estudiantes.xlsx');
     });
-  }
-
-  openModal(): void {
-    if (this.modalComponent) {
-      this.modalComponent.openModal();
-    }
   }
 
 }

@@ -11,6 +11,7 @@ import { EducationLevelService } from '../../../../core/service/education_level.
 import { IEducationLevel } from '../../../../core/model/education_level.model';
 import { IStudentBackend } from '../../../../core/model/student_backend.model';
 import { forkJoin } from 'rxjs';
+import { SweetAlert } from '../../../../core/service/sweetAlert.service';
 
 @Component({
   selector: 'app-student-form',
@@ -25,7 +26,8 @@ export class StudentFormComponent {
     private _studentService: StudentService,
     private _gradeService: GradeService,
     private _sectionService: SectionService,
-    private _educationLevelService: EducationLevelService
+    private _educationLevelService: EducationLevelService,
+    private _sweetAlert: SweetAlert
   ) {}
 
   ngOnInit(): void {
@@ -38,26 +40,6 @@ export class StudentFormComponent {
   sections: ISection[] = []
   educationLevels: IEducationLevel[] = []
 
-  // loadGrades():void{
-  //   this._gradeService.getAll().subscribe({
-  //     next: (data: IGrade[]) => {
-  //       this.grades = data;
-  //     },
-  //     error:(err) => {
-  //       console.log(err);
-  //     },
-  //   })
-  // }
-  // loadSections():void{
-  //   this._sectionService.getAll().subscribe({
-  //     next: (data: IGrade[]) => {
-  //       this.sections = data;
-  //     },
-  //     error:(err) => {
-  //       console.log(err);
-  //     },
-  //   })
-  // }
   loadEducationLevel():void{
     this._educationLevelService.getAll().subscribe({
       next: (data: IEducationLevel[]) => {
@@ -158,11 +140,11 @@ export class StudentFormComponent {
           this._studentService.saveStudent(this.newStudentBackend)
             .subscribe({
               next: (data: IStudentBackend) => {
-                console.log('Datos enviados correctamente', data);
+                this.resetForm()
+                this._sweetAlert.showAlert()
               },
               error: (err) => {
                 console.error(err);
-                console.log(this.formGroup.value);
                 this.formIsValid();
               }
             });
@@ -173,9 +155,7 @@ export class StudentFormComponent {
         }
       });
     } else {
-      console.warn('¡El formulario no es valido!');
       this.formIsValid();
-      console.log(this.formGroup.value);
     }
   }
 
@@ -203,6 +183,24 @@ export class StudentFormComponent {
         (this as any)[validationProperty] = control.invalid;
       }
     });
+  }
+
+  resetForm(): void {
+    this.formGroup.reset({
+      name: '',
+      surname: '',
+      dni: '',
+      grade: '',
+      section: '',
+      education_level: '',
+      state: 'ACTIVO'
+    });
+    this.nameValid = false;
+    this.surnameValid = false;
+    this.dniValid = false;
+    this.gradeValid = false;
+    this.sectionValid = false;
+    this.educationLevelValid = false;
   }
 
 

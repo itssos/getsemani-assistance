@@ -56,26 +56,36 @@ export class QrScannerComponent {
     user: this.userRegisterAssistance,
   }
 
-  loadStudentById(id: string):void{
-      this._studentService.getStudentById(id).subscribe({
-        next: (data: IStudentBackend) => {
+  loadStudentById(id: string): void {
+    this._studentService.getStudentById(id).subscribe({
+      next: (data: IStudentBackend | null) => {
+        if (data) {
           this.assistanceQr.student = data;
-          this.registerAssistance(this.assistanceQr)
-        },
-        error:(err) => {
-          console.log(err);
-        },
-      })
+          this.registerAssistance(this.assistanceQr);
+        } else {
+          this._sweetAlert.notFoundStudentById();
+        }
+      },
+      error: (error) => {
+        console.error('Error inesperado al cargar el estudiante:', error.message);
+      }
+    });
   }
+
 
   registerAssistance(assistance: IAssistance){
     this._assistanceService.registerAssistance(assistance).subscribe({
       next: (data: IAssistance) => {
-        this._sweetAlert.successAssistance(data)
-        this.onCamera()
-        setTimeout(() => {
+        if(data){
+          this._sweetAlert.successAssistance(data)
           this.onCamera()
-        }, 1000);
+          setTimeout(() => {
+            this.onCamera()
+          }, 1000);
+        }else{
+          console.log("NO ES HORA");
+
+        }
       },
       error:(err) => {
         console.log(err);
