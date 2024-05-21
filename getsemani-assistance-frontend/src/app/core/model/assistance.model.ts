@@ -6,5 +6,5 @@ export interface IAssistance {
   student: IStudentBackend
   date?:    Date
   user:    IUser
-  sate?:    string
+  state:    string
 }

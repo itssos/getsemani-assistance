@@ -13,9 +13,9 @@ export class AssistanceService {
 
   constructor(private _httpClient: HttpClient, private serverUrlService: ServerUrlService) { }
 
-  // public getAllAssistance(): Observable<IAssistance[]>{
-  //   return this._httpClient.get<IAssistance[]>(`${this.apiAssistanceUrl}`)
-  // }
+  public getAll(): Observable<IAssistance[]>{
+    return this._httpClient.get<IAssistance[]>(`${this.apiUrl}`)
+  }
 
   public registerAssistance(assistance: IAssistance): Observable<IAssistance> {
     return this._httpClient.post<IAssistance>(`${this.apiUrl}`, assistance);

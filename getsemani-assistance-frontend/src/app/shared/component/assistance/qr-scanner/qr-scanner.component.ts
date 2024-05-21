@@ -54,6 +54,7 @@ export class QrScannerComponent {
   assistanceQr: IAssistance = {
     student: this.studentQr,
     user: this.userRegisterAssistance,
+    state: ''
   }
 
   loadStudentById(id: string): void {
