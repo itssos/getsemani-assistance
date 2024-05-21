@@ -1,10 +1,10 @@
-import { IStudent } from "./student.model";
+import { IStudentBackend } from "./student_backend.model";
 import { IUser } from "./user.model";
 
 export interface IAssistance {
-  id:      number
-  student: IStudent
-  date:    Date
+  id?:      number
+  student: IStudentBackend
+  date?:    Date
   user:    IUser
-  sate:    string
+  sate?:    string
 }

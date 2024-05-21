@@ -32,7 +32,7 @@ public class AssistanceService {
 
         if (existingAssistance.isPresent()) {
             // ----------- LOGICA DE REGISTRO DE SALIDA
-//            Assistance prevAssistance = existingAssistance.get();
+            Assistance prevAssistance = existingAssistance.get();
 //            if (prevAssistance.getState().equals("ASISTIO") || prevAssistance.getState().equals("TARDANZA")) {
 //                LocalTime limitTime = LocalTime.of(14, 0); // Hora límite a las 2:00 PM
 //                if (assistance.getDate().toLocalTime().isAfter(limitTime)) {
@@ -43,7 +43,7 @@ public class AssistanceService {
 //            } else {
 //                return null;
 //            }
-            return null;
+            return prevAssistance;
         } else {
             LocalTime time = assistance.getDate().toLocalTime();
             if (time.isBefore(LocalTime.of(13, 22))) {

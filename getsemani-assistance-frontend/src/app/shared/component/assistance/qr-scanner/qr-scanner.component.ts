@@ -2,6 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { ZXingScannerComponent, ZXingScannerModule } from '@zxing/ngx-scanner';
 import { BarcodeFormat} from '@zxing/library';
 import { BehaviorSubject } from 'rxjs';
+import { IStudentBackend } from '../../../../core/model/student_backend.model';
+import { StudentService } from '../../../../core/service/student.service';
+import { AssistanceService } from '../../../../core/service/assistance.service';
+import { IAssistance } from '../../../../core/model/assistance.model';
+import { IUser } from '../../../../core/model/user.model';
+import { SweetAlert } from '../../../../core/service/sweetAlert.service';
 
 @Component({
   selector: 'app-qr-scanner',
@@ -11,6 +17,13 @@ import { BehaviorSubject } from 'rxjs';
   styleUrl: './qr-scanner.component.css'
 })
 export class QrScannerComponent {
+
+  constructor(
+    private _studentService: StudentService,
+    private _assistanceService: AssistanceService,
+    private _sweetAlert: SweetAlert
+  ){}
+
   @ViewChild('scanner')
   scanner!: ZXingScannerComponent;
 
@@ -18,6 +31,57 @@ export class QrScannerComponent {
 
   title = 'getsemani-assistance';
   scannerEnabled = false
+
+  studentQr: IStudentBackend = {
+    id: '',
+    name: '',
+    surname: '',
+    dni: '',
+    grade: {id: 0, name: ''},
+    section: {id: 0, name: ''},
+    educationLevel: {id: 0, name: '', maxGrade: 0, maxSection: 0},
+    state: ''
+  }
+
+  userRegisterAssistance: IUser = {
+    id: '11111111',
+    name: 'AUXILIAR',
+    surname: 'AUXILIAR',
+    password: 'AUXILIAR',
+    rol: 'AUXILIAR'
+  }
+
+  assistanceQr: IAssistance = {
+    student: this.studentQr,
+    user: this.userRegisterAssistance,
+  }
+
+  loadStudentById(id: string):void{
+      this._studentService.getStudentById(id).subscribe({
+        next: (data: IStudentBackend) => {
+          this.assistanceQr.student = data;
+          this.registerAssistance(this.assistanceQr)
+        },
+        error:(err) => {
+          console.log(err);
+        },
+      })
+  }
+
+  registerAssistance(assistance: IAssistance){
+    this._assistanceService.registerAssistance(assistance).subscribe({
+      next: (data: IAssistance) => {
+        this._sweetAlert.successAssistance(data)
+        this.onCamera()
+        setTimeout(() => {
+          this.onCamera()
+        }, 1000);
+      },
+      error:(err) => {
+        console.log(err);
+      }
+    })
+  }
 
 
   availableDevices!: MediaDeviceInfo[];
@@ -52,7 +116,8 @@ export class QrScannerComponent {
   }
 
   onCodeResult(resultString: string) {
-    this.qrResultString = resultString;
+    this.qrResultString = resultString
+    this.loadStudentById(this.qrResultString)
   }
 
   onDeviceSelectChange(e: any) {

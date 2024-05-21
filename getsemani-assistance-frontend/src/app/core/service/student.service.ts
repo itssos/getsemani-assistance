@@ -19,8 +19,8 @@ export class StudentService {
     return this._httpClient.get<IStudent[]>(this.apiStudentUrl)
   }
 
-  public getStudentById(id: string): Observable<IStudent> {
-    return this._httpClient.get<IStudent>(`${this.apiStudentUrl}/${id}`)
+  public getStudentById(id: string): Observable<IStudentBackend> {
+    return this._httpClient.get<IStudentBackend>(`${this.apiStudentUrl}/${id}`)
   }
 
   public getStudentsByGradeAndSection(grade: string, section: string): Observable<IStudentBackend[]>{

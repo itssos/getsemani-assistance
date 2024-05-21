@@ -1,4 +1,4 @@
-<div class="p-4 md:ml-64 h-auto pt-20">
+<div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
   <div class="px-4 mx-auto max-w-md">
     <div>
       <div>
@@ -50,17 +50,6 @@
           <path d="M12.665 2.781a1 1 0 10-1.333 1.491 5 5 0 11-6.665.001 1 1 0 00-1.333-1.49 7 7 0 109.331-.002z" fill="#000000"/>
         </svg>
       </button>
-
     </div>
-    <button
-    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
-    (click)="clearResult()">Borrar resultado</button>
-
-    @if(qrResultString){
-    <section class="results">
-      <small>Result</small>
-      <strong>{{qrResultString}}</strong>
-    </section>
-    }
   </div>
 </div>

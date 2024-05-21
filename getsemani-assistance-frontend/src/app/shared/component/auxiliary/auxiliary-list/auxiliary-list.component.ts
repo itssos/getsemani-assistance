@@ -17,7 +17,7 @@ export class AuxiliaryListComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,private _userService:UserService,private _dataService:dataShared
     ,private _sweetAlert:SweetAlert){}
 
-  users:any []=[]
+  userss:any []=[]
   roles:any []=[]
   selectedId: string | null = null;
 
@@ -32,11 +32,15 @@ export class AuxiliaryListComponent implements OnInit {
     password: '',
     rol: ''
   }
-  
+
   ngOnInit(): void {
     this._userService.getAllUser().subscribe((users: any[]) => {
-      this.users = users.filter(user => user.rol === 'Auxiliar');
+      this.userss = users.filter(user => user.rol === 'AUXILIAR');
+      console.log(this.userss);
+
     });
+
+
   }
   deleteUser(confirmacion: boolean) {
     if (confirmacion && this.selectedId !== null) {
@@ -66,8 +70,8 @@ export class AuxiliaryListComponent implements OnInit {
   update() {
     if (this.us.id !== null && this.formGroup.valid) {
       const formData = this.formGroup.value;
-      
-      this.newUser.surname = formData.surname || ''; 
+
+      this.newUser.surname = formData.surname || '';
       this.newUser.name=formData.name || '';
       this.newUser.id=this.us.id;
       this.newUser.password=this.us.password;
@@ -88,7 +92,7 @@ export class AuxiliaryListComponent implements OnInit {
       this.formIsValid();
     }
   }
-  
+
 
   setSelectedId(id: string) {
     this.selectedId = id;

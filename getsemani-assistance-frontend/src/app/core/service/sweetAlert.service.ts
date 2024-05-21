@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { IAssistance } from '../model/assistance.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,7 @@ export class SweetAlert {
       position: 'top-end',
       timer: 3000, // Duración en milisegundos
       showConfirmButton: false // No muestra el botón de confirmación
-    }); 
+    });
   }
   alertDeleted(){
     Swal.fire({
@@ -25,7 +26,7 @@ export class SweetAlert {
       position: 'top-end',
       timer: 3000, // Duración en milisegundos
       showConfirmButton: false // No muestra el botón de confirmación
-    }); 
+    });
   }
   showAlert() {
     Swal.fire({
@@ -33,6 +34,14 @@ export class SweetAlert {
       title: 'Operación exitosa',
       text: 'La operación se completó con éxito.'
     });
-    
+  }
+  successAssistance(assistance: IAssistance) {
+    Swal.fire({
+      icon: 'success',
+      title: '¡Asistencia registrada!',
+      text: `${assistance.student.surname} ${assistance.student.name}`,
+      timer: 1000,
+      showConfirmButton: false
+    });
   }
 }

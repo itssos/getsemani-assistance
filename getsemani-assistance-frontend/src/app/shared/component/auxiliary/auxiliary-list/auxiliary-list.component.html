@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        @for(user of users;track user.id){
+        @for(user of userss;track user.id){
         <tr (click)="pasarUser(user)"
           class="odd:bg-white even:bg-gray-50 hover:bg-slate-100"
         >
@@ -34,7 +34,7 @@
           <td class="px-6 py-4">{{user.rol}}</td>
 
           <td class="px-6 py-4">
-            <a (click)="obtener(user.id);resetValidations()" 
+            <a (click)="obtener(user.id);resetValidations()"
             data-modal-target="crud-modal" data-modal-toggle="crud-modal"
               class="font-medium text-blue-600  hover:underline"
               >Editar</a
@@ -49,8 +49,8 @@
       }
       </tbody>
     </table>
-    
-  
+
+
     <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
       <div class="relative p-4 w-full max-w-md max-h-full">
           <div class="relative bg-white rounded-lg shadow ">
@@ -117,6 +117,6 @@
           </form>
       </div>
   </div>
-</div> 
+</div>
   </div>
   <!--TABLA-->

@@ -18,7 +18,7 @@ constructor(private _formBuilder: FormBuilder, private _userService: UserService
   private _sweetAlert:SweetAlert) {}
 
 roles:any []=[]
-  
+
 
 
 newUser: IUser = {
@@ -44,8 +44,8 @@ clickAdd(): void {
       this.newUser.name = formData.name;
       this.newUser.surname = formData.surname;
       this.newUser.password = formData.id;
-      this.newUser.rol = 'Auxiliar';
-      
+      this.newUser.rol = 'AUXILIAR';
+
       this._userService.createUser(this.newUser)
         .subscribe({
           next: (data: IUser) => {

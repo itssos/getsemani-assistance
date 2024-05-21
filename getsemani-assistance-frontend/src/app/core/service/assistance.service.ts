@@ -9,16 +9,16 @@ import { Observable } from 'rxjs';
 })
 export class AssistanceService {
 
-  private apiAssistanceUrl = this.serverUrlService.getBaseURL()+'assistance'
+  private apiUrl = this.serverUrlService.getBaseURL()+'assistance'
 
   constructor(private _httpClient: HttpClient, private serverUrlService: ServerUrlService) { }
 
-  public getAllAssistance(): Observable<IAssistance[]>{
-    return this._httpClient.get<IAssistance[]>(`${this.apiAssistanceUrl}`)
-  }
+  // public getAllAssistance(): Observable<IAssistance[]>{
+  //   return this._httpClient.get<IAssistance[]>(`${this.apiAssistanceUrl}`)
+  // }
 
-  public registerAssistance(assistanceData: any): Observable<IAssistance> {
-    return this._httpClient.post<IAssistance>(`${this.apiAssistanceUrl}`, assistanceData);
+  public registerAssistance(assistance: IAssistance): Observable<IAssistance> {
+    return this._httpClient.post<IAssistance>(`${this.apiUrl}`, assistance);
   }
 
 }
