@@ -20,6 +20,11 @@ public class EducationLevelController {
         return ResponseEntity.ok(educationLevelService.getById(id));
     }
 
+    @GetMapping("/name={name}")
+    public ResponseEntity<EducationLevel> getByName(@PathVariable String name){
+        return ResponseEntity.ok(educationLevelService.getByName(name));
+    }
+
     @GetMapping
     public ResponseEntity<List<EducationLevel>> getAll(){
         return ResponseEntity.ok(educationLevelService.getAll());

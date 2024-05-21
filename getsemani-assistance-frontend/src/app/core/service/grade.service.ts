@@ -20,4 +20,8 @@ export class GradeService {
     return this._httpClient.get<IGrade>(`${this.apiUrl}/${id}`)
   }
 
+  public getByName(name: string): Observable<IGrade> {
+    return this._httpClient.get<IGrade>(`${this.apiUrl}/name=${name}`)
+  }
+
 }

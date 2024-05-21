@@ -21,6 +21,10 @@ public class SectionService {
         return sectionRepository.findById(id).orElse(null);
     }
 
+    public Section getByName(String name){
+        return sectionRepository.findByName(name);
+    }
+
     public Section create(Section section){
         return sectionRepository.save(section);
     }

@@ -16,6 +16,10 @@ public class EducationLevelService {
         return educationLevelRepository.findById(id).orElse(null);
     }
 
+    public EducationLevel getByName(String name){
+        return educationLevelRepository.findByName(name);
+    }
+
     public List<EducationLevel> getAll(){
         return educationLevelRepository.findAll();
     }

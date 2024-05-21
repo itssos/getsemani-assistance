@@ -21,4 +21,8 @@ export class EducationLevelService {
     return this._httpClient.get<IEducationLevel>(`${this.apiUrl}/${id}`)
   }
 
+  public getByName(name: string): Observable<IEducationLevel> {
+    return this._httpClient.get<IEducationLevel>(`${this.apiUrl}/name=${name}`)
+  }
+
 }

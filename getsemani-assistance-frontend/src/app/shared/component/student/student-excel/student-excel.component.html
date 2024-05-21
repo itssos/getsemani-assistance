@@ -34,39 +34,45 @@
       <table class="w-full text-sm text-left rtl:text-right text-gray-500">
           <thead class="text-xs text-gray-700 uppercase bg-gray-100">
               <tr>
-                  <th scope="col" class="px-6 py-3 text-center border border-gray-300">
-                      DNI
-                  </th>
-                  <th scope="col" class="px-6 py-3 border border-gray-300">
-                      Nombre
-                  </th>
-                  <th scope="col" class="px-6 py-3 border border-gray-300">
-                      Apellido
-                  </th>
-                  <th scope="col" class="px-3 py-3 text-center border border-gray-300">
-                      Grado
-                  </th>
-                  <th scope="col" class="px-3 py-3 text-center border border-gray-300">
-                      Sección
-                  </th>
+                <th scope="col" class="px-6 py-3 border border-gray-300">
+                  Apellido
+                </th>
+                <th scope="col" class="px-6 py-3 border border-gray-300">
+                  Nombre
+                </th>
+                <th scope="col" class="px-6 py-3 text-center border border-gray-300">
+                  DNI
+                </th>
+                <th scope="col" class="px-1 py-3 text-center border border-gray-300">
+                  Nivel de Educación
+                </th>
+                <th scope="col" class="px-1 py-3 text-center border border-gray-300">
+                  Grado
+                </th>
+                <th scope="col" class="px-1 py-3 text-center border border-gray-300">
+                  Sección
+                </th>
               </tr>
           </thead>
           <tbody>
               @for (student of studentList; track student.id) {
                 <tr class="bg-white border-b">
-                  <td class="px-6 py-4 text-center border">
-                      {{student.id}}
-                  </td>
-                  <td class="px-6 py-4 border">
-                      {{student.name}}
-                  </td>
-                  <td class="px-6 py-4 border">
+                  <td class="px-6 py-4 text-base">
                     {{student.surname}}
                   </td>
-                  <td class="px-3 py-4 text-center border">
+                  <td class="px-6 py-4 text-base">
+                    {{student.name}}
+                  </td>
+                  <td class="px-6 py-4 text-center text-base">
+                    {{student.dni}}
+                  </td>
+                  <td class="px-3 py-4 text-center text-base">
+                    {{student.education_level}}
+                  </td>
+                  <td class="px-3 py-4 text-center text-base">
                     {{student.grade}}
                   </td>
-                  <td class="px-3 py-4 text-center border">
+                  <td class="px-3 py-4 text-center text-base">
                     {{student.section}}
                   </td>
                 </tr>

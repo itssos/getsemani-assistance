@@ -28,6 +28,11 @@ public class SectionController {
         return ResponseEntity.ok(sectionService.getById(id));
     }
 
+    @GetMapping("/name={name}")
+    public ResponseEntity<Section> getByName(@PathVariable String name){
+        return ResponseEntity.ok(sectionService.getByName(name));
+    }
+
     @PostMapping
     public ResponseEntity<Section> create(@Valid @RequestBody Section section){
         return new ResponseEntity<>(sectionService.create(section), HttpStatus.CREATED);

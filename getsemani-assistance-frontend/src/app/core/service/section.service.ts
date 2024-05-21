@@ -20,4 +20,8 @@ export class SectionService {
     return this._httpClient.get<ISection>(`${this.apiUrl}/${id}`)
   }
 
+  public getByName(name: string): Observable<ISection> {
+    return this._httpClient.get<ISection>(`${this.apiUrl}/name=${name}`)
+  }
+
 }

@@ -43,8 +43,8 @@ export class StudentService {
     )
   }
 
-  public saveStudentBatch(studentList: IStudent[]): Observable<IStudent[]>{
-    return this._httpClient.post<IStudent[]>(`${this.apiStudentUrl}/batch`, studentList).pipe(
+  public saveStudentBatch(studentList: IStudentBackend[]): Observable<IStudentBackend[]>{
+    return this._httpClient.post<IStudentBackend[]>(`${this.apiStudentUrl}/batch`, studentList).pipe(
       catchError((error: HttpErrorResponse) => {
         let errorMessage = 'An error occurred while saving the student.'
         if (error.error && error.error.errors) {

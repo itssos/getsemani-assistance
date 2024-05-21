@@ -17,6 +17,10 @@ public class GradeService {
         return gradeRepository.findById(id).orElse(null);
     }
 
+    public Grade getByName(String name){
+        return gradeRepository.findByName(name);
+    }
+
     public List<Grade> getAllGrades(){
         return gradeRepository.findAll();
     }
