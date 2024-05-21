@@ -1,0 +1,119 @@
+<!-- component -->
+<div>
+    <div
+      class="grid sm:grid-cols-2 items-center gap-16 p-8 mx-auto max-w-4xl  bg-white shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md text-[#333] font-[sans-serif]"
+    >
+      <div>
+        <h1 class="text-3xl font-extrabold ">Registro</h1>
+        <p class="text-sm text-gray-400 mt-3">
+          Complete este formulario para registrar a un auxiliar en el colegio.
+          Gracias por su colaboración.
+        </p>
+        <div class="mt-12">
+          <h2 class="text-lg font-extrabold">
+            Instrucciones
+          </h2>
+          <div class="text-sm text-gray-400 mt-3">
+            <p class="mb-1">
+              1.Complete todos los campos obligatorios con información precisa.
+            </p>
+            <p class="mb-1">2.Lea y responda cada pregunta cuidadosamente.</p>
+            <p class="mb-1">3.Revise su información antes de enviar.</p>
+            <p class="mb-1">
+              4.Haga clic en 'Enviar' para completar el registro.
+            </p>
+            <p class="font-semibold">Gracias por su interés y participación."</p>
+          </div>
+        </div>
+      </div>
+  
+      <form [formGroup]="formGroup" class="max-w-sm mx-auto  lg:w-auto xl:w-60">
+        <div class="mb-5">
+          <label
+            for="nombre"
+            class="block mb-2 text-sm font-medium text-gray-900"
+            >Nombres</label
+          >
+          <input
+            type="text"
+            id="name"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Nombre"
+            formControlName="name"
+            required
+          />
+          @if(nameValid){
+            <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Ingrese un nombre!</p>
+          }
+        </div>
+        <div class="mb-5">
+          <label
+            for="apellido"
+            class="block mb-2 text-sm font-medium text-gray-900 "
+            >Apellido</label
+          >
+          <input
+            type="text"
+            id="surname"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Apellido"
+            formControlName="surname"
+            required
+          />
+          @if(surnameValid){
+            <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Ingrese un apellido!</p>
+          }
+        </div>
+        <div class="mb-5">
+          <label
+            for="dni"
+            class="block mb-2 text-sm font-medium text-gray-900 "
+            >DNI</label
+          >
+          <input
+            type="text"
+            id="id"
+            placeholder="DNI"
+            min="8"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            formControlName="id"
+            required
+          />
+          @if(idValid){
+            <p id="standard_error_help" class="mt-2 text-xs text-red-600">Este DNI no es apropiado o ya existe</p>
+          }
+        </div>
+  
+        
+  
+        <!-- <div class="flex items-start mb-5">
+          <div class="flex items-center h-5">
+            <input
+              id="terms"
+              type="checkbox"
+              value=""
+              class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+              required
+            />
+            
+          </div>
+          <label
+            for="terms"
+            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Estoy de acuerdo con los
+            <a href="#" class="text-blue-600 hover:underline dark:text-blue-500" required
+              >términos y condiciones</a
+            ></label
+          >
+        </div> -->
+        <button (click)="clickAdd()"
+          type="submit"
+          class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        >
+          Registrar nueva cuenta
+        </button>
+      </form>
+    </div>
+   
+  </div>
+  

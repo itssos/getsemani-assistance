@@ -4,6 +4,7 @@ import { AssistanceComponent } from './page/assistance/assistance.component';
 import { LoginComponent } from './page/login/login.component';
 import { MainComponent } from './layout/main/main.component';
 import { EmptyComponent } from './layout/empty/empty.component';
+import { AuxiliaryComponent } from './page/auxiliary/auxiliary.component';
 
 export const routes: Routes = [
   {
@@ -11,7 +12,8 @@ export const routes: Routes = [
     component: MainComponent,
     children: [
       { path: 'estudiantes', component: StudentComponent },
-      { path: 'asistencia', component: AssistanceComponent }
+      { path: 'asistencia', component: AssistanceComponent },
+      { path: 'auxiliar', component: AuxiliaryComponent }
     ]
   },
   {
