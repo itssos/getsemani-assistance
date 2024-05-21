@@ -22,6 +22,11 @@ public class GradeController {
         return ResponseEntity.ok(gradeService.getAllGrades());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Grade> getById(@PathVariable int id){
+        return ResponseEntity.ok(gradeService.getById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Grade> create(@Valid @RequestBody Grade grade){
         return new ResponseEntity<>(gradeService.create(grade), HttpStatus.CREATED);

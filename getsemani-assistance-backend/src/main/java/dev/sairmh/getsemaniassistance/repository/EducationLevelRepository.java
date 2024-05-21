@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EducationLevelRepository extends JpaRepository<EducationLevel, Integer> {
+    EducationLevel findByName(String name);
 }

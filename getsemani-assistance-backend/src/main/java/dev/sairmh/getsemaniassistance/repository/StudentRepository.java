@@ -15,4 +15,5 @@ public interface StudentRepository extends JpaRepository<Student, String>{
     List<Student> findBySection(Section section);
     List<Student> findByEducationLevel(EducationLevel educationLevel);
     List<Student> findByGradeAndSection(Grade grade, Section section);
+    List<Student> findByEducationLevelAndGradeAndSection(EducationLevel educationLevel, Grade grade, Section section);
 }

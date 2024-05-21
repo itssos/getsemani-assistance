@@ -1,33 +1,49 @@
 <div class="px-4 mx-auto max-w-2xl py-8">
   <h2 class="mb-4 text-xl font-bold text-gray-900">Selecciona un grado y sección para buscar</h2>
-  <form class="flex justify-between items-start max-w-96 mx-auto mt-4" [formGroup]="formGroup">
+  <form class="flex justify-between items-center max-w- mx-auto mt-4" [formGroup]="formGroup">
     <div>
-      <label for="grade" class="mb-2 text-sm font-medium text-gray-900">Grado</label>
-      <select formControlName="grade" id="grade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-        <option value="" disabled selected>Grado</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
+      <label for="education_level" class="block mb-2 text-sm font-medium text-gray-900">Nivel de Educación</label>
+      <select formControlName="education_level" id="education_level" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" (change)="educationLevelValid = !formGroup.controls.education_level.valid" (change)="onEducationLevelChange()">
+          <option value="" disabled selected>Selecciona una nivel</option>
+          @for (educationLevel of educationLevels; track educationLevel.id) {
+            <option [value]="educationLevel.name">{{ educationLevel.name }}</option>
+          }
       </select>
+      @if(educationLevelValid){
+        <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Seleccione una sección!</p>
+      }
     </div>
-    <div>
-      <label for="section" class="mb-2 text-sm font-medium text-gray-900">Sección</label>
-      <select formControlName="section" id="section" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-        <option value="" disabled selected>Sección</option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="C">C</option>
-        <option value="D">D</option> <!-- Corregimos los valores duplicados -->
-        <option value="E">E</option>
-        <option value="F">F</option>
-      </select>
+    @if (grades.length > 0){
+      <div class="w-24">
+        <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grado</label>
+        <select formControlName="grade" id="grade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" (change)="gradeValid = !formGroup.controls.grade.valid">
+            <option value="" disabled selected>Selecciona un grado</option>
+            @for (grade of grades; track grade.id) {
+              <option [value]="grade.name">{{ grade.name }}</option>
+            }
+        </select>
+        @if(gradeValid){
+          <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Seleccione un grado!</p>
+        }
     </div>
+    }
+    @if(sections.length > 0){
+      <div class="w-24">
+        <label for="section" class="block mb-2 text-sm font-medium text-gray-900">Sección</label>
+        <select formControlName="section" id="section" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" (change)="sectionValid = !formGroup.controls.section.valid">
+            <option value="" disabled selected>Selecciona una sección</option>
+            @for (section of sections; track section.id) {
+              <option [value]="section.name">{{ section.name }}</option>
+            }
+        </select>
+        @if(sectionValid){
+          <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Seleccione una sección!</p>
+        }
+    </div>
+    }
     <div class="w-20">
       @if(this.formGroup.valid){
-        <button (click)="loadStudentsByGradeAndSection(this.formGroup.controls.grade.value,this.formGroup.controls.section.value)" type="submit" class="mt-6 w-full py-2.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Buscar</button>
+        <button (click)="loadStudentsByEducationLevelAndGradeAndSection(this.formGroup.controls.education_level.value,this.formGroup.controls.grade.value,this.formGroup.controls.section.value)" type="submit" class="mt-6 w-full py-2.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">Buscar</button>
       }@else {
         <button type="button" class="mt-6 w-full py-2.5 text-base font-medium text-white bg-blue-400 cursor-not-allowed focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center" disabled>Buscar</button>
       }
@@ -40,40 +56,46 @@
   <table class="w-full text-sm text-left rtl:text-right text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
-              <th scope="col" class="px-6 py-3 text-center border border-gray-300">
-                DNI
-              </th>
-              <th scope="col" class="px-6 py-3 border border-gray-300">
-                Nombre
-              </th>
-              <th scope="col" class="px-6 py-3 border border-gray-300">
-                Apellido
-              </th>
-              <th scope="col" class="px-1 py-3 text-center border border-gray-300">
-                Grado
-              </th>
-              <th scope="col" class="px-1 py-3 text-center border border-gray-300">
-                Sección
-              </th>
+            <th scope="col" class="px-6 py-3 border border-gray-300">
+              Apellido
+            </th>
+            <th scope="col" class="px-6 py-3 border border-gray-300">
+              Nombre
+            </th>
+            <th scope="col" class="px-6 py-3 text-center border border-gray-300">
+              DNI
+            </th>
+            <th scope="col" class="px-1 py-3 text-center border border-gray-300">
+              Nivel de Educación
+            </th>
+            <th scope="col" class="px-1 py-3 text-center border border-gray-300">
+              Grado
+            </th>
+            <th scope="col" class="px-1 py-3 text-center border border-gray-300">
+              Sección
+            </th>
           </tr>
       </thead>
       <tbody>
           @for (student of studentList; track student.id) {
             <tr class="bg-white border-b">
-              <td class="px-6 py-4 text-center text-base">
-                {{student.id}}
+              <td class="px-6 py-4 text-base">
+                {{student.surname}}
               </td>
               <td class="px-6 py-4 text-base">
                 {{student.name}}
               </td>
-              <td class="px-6 py-4 text-base">
-                {{student.surname}}
+              <td class="px-6 py-4 text-center text-base">
+                {{student.dni}}
               </td>
               <td class="px-3 py-4 text-center text-base">
-                {{student.grade}}
+                {{student.educationLevel.name}}
               </td>
               <td class="px-3 py-4 text-center text-base">
-                {{student.section}}
+                {{student.grade.name}}
+              </td>
+              <td class="px-3 py-4 text-center text-base">
+                {{student.section.name}}
               </td>
             </tr>
           } @empty {

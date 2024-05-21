@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core'
 import { Observable, throwError } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { IStudent } from '../model/student.model'
+import { IStudentBackend } from '../model/student_backend.model'
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +19,20 @@ export class StudentService {
     return this._httpClient.get<IStudent[]>(this.apiStudentUrl)
   }
 
-  public getStudentById(id: number): Observable<IStudent> {
+  public getStudentById(id: string): Observable<IStudent> {
     return this._httpClient.get<IStudent>(`${this.apiStudentUrl}/${id}`)
   }
 
-  public getStudentsByGradeAndSection(grade: string, section: string): Observable<IStudent[]>{
-    return this._httpClient.get<IStudent[]>(`${this.apiStudentUrl}/${grade}/${section}`)
+  public getStudentsByGradeAndSection(grade: string, section: string): Observable<IStudentBackend[]>{
+    return this._httpClient.get<IStudentBackend[]>(`${this.apiStudentUrl}/${grade}/${section}`)
   }
 
-  public saveStudent(student: IStudent): Observable<IStudent> {
-    return this._httpClient.post<IStudent>(`${this.apiStudentUrl}`, student).pipe(
+  public getByEducationLevelAndGradeAndSection(educationLevel: string, grade: string, section: string): Observable<IStudentBackend[]>{
+    return this._httpClient.get<IStudentBackend[]>(`${this.apiStudentUrl}/${educationLevel}/${grade}/${section}`)
+  }
+
+  public saveStudent(student: IStudentBackend): Observable<IStudentBackend> {
+    return this._httpClient.post<IStudentBackend>(`${this.apiStudentUrl}`, student).pipe(
       catchError((error: HttpErrorResponse) => {
         let errorMessage = 'An error occurred while saving the student.'
         if (error.error && error.error.errors) {

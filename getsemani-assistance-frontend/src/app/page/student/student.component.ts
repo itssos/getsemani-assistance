@@ -6,7 +6,11 @@ import { FileUploadComponent } from '../../shared/component/student/student-exce
 @Component({
   selector: 'app-student',
   standalone: true,
-  imports: [StudentListComponent, StudentFormComponent, FileUploadComponent],
+  imports: [
+    StudentListComponent,
+    StudentFormComponent,
+    FileUploadComponent
+  ],
   templateUrl: './student.component.html',
   styleUrl: './student.component.css'
 })

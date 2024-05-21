@@ -6,6 +6,7 @@ import dev.sairmh.getsemaniassistance.model.EducationLevel;
 import dev.sairmh.getsemaniassistance.model.Grade;
 import dev.sairmh.getsemaniassistance.model.Section;
 import dev.sairmh.getsemaniassistance.model.Student;
+import dev.sairmh.getsemaniassistance.repository.EducationLevelRepository;
 import dev.sairmh.getsemaniassistance.repository.GradeRepository;
 import dev.sairmh.getsemaniassistance.repository.SectionRepository;
 import dev.sairmh.getsemaniassistance.repository.StudentRepository;
@@ -26,6 +27,8 @@ public class StudentService {
     @Autowired
     private SectionRepository sectionRepository;
     @Autowired
+    private EducationLevelRepository educationLevelRepository;
+    @Autowired
     private Validator validator;
 
     public List<Student> getAllStudents() {
@@ -40,6 +43,13 @@ public class StudentService {
         Grade g = gradeRepository.findByName(grade);
         Section s = sectionRepository.findByName(section);
         return studentRepository.findByGradeAndSection(g,s);
+    }
+
+    public List<Student> getStudentsByEducationLevelAndGradeAndSection(String educationLevel, String grade, String section) {
+        EducationLevel e = educationLevelRepository.findByName(educationLevel);
+        Grade g = gradeRepository.findByName(grade);
+        Section s = sectionRepository.findByName(section);
+        return studentRepository.findByEducationLevelAndGradeAndSection(e,g,s);
     }
 
     public Student create(Student student){

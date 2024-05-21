@@ -1,5 +1,6 @@
 package dev.sairmh.getsemaniassistance.controller;
 
+import dev.sairmh.getsemaniassistance.model.Grade;
 import dev.sairmh.getsemaniassistance.model.Section;
 import dev.sairmh.getsemaniassistance.service.SectionService;
 import jakarta.validation.Valid;
@@ -18,8 +19,13 @@ public class SectionController {
     private SectionService sectionService;
 
     @GetMapping
-    public ResponseEntity<List<Section>> getAllGrades(){
+    public ResponseEntity<List<Section>> getAllSections(){
         return ResponseEntity.ok(sectionService.getAllSections());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Section> getById(@PathVariable int id){
+        return ResponseEntity.ok(sectionService.getById(id));
     }
 
     @PostMapping

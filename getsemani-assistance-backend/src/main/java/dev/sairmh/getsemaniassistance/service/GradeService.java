@@ -13,8 +13,8 @@ public class GradeService {
     @Autowired
     private GradeRepository gradeRepository;
 
-    public Grade getGradeByName(String name){
-        return gradeRepository.findByName(name);
+    public Grade getById(int id){
+        return gradeRepository.findById(id).orElse(null);
     }
 
     public List<Grade> getAllGrades(){
