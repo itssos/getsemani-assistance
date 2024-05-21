@@ -40,7 +40,6 @@ clickAdd(): void {
     const formData = this.formGroup.value;
 
     if (formData.id !== undefined && formData.name !== undefined && formData.surname !== undefined) {
-      // Asignar valores a newUser
       this.newUser.id = formData.id;
       this.newUser.name = formData.name;
       this.newUser.surname = formData.surname;
@@ -54,6 +53,7 @@ clickAdd(): void {
             console.log('Datos enviados correctamente', data);
             this.resetValidations();
             this._sweetAlert.showAlert();
+            window.location.reload();
           },
           error: (err) => {
             console.error(err);
@@ -61,7 +61,6 @@ clickAdd(): void {
           }
         });
 
-      // Imprimir los datos a enviar (opcional)
       console.log('Datos a enviar:', this.newUser);
     } else {
       console.warn('¡Alguno de los campos del formulario es undefined!');

@@ -3,6 +3,7 @@ import { UserService } from '../../../../core/service/user.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUser } from '../../../../core/model/user.model';
 import { SweetAlert } from '../../../../core/service/sweetAlert.service';
+import { dataShared } from '../../../../core/service/dataShared.service';
 
 @Component({
   selector: 'app-auxiliary-list',
@@ -13,7 +14,7 @@ import { SweetAlert } from '../../../../core/service/sweetAlert.service';
 })
 
 export class AuxiliaryListComponent implements OnInit {
-  constructor(private _formBuilder: FormBuilder,private _userService:UserService
+  constructor(private _formBuilder: FormBuilder,private _userService:UserService,private _dataService:dataShared
     ,private _sweetAlert:SweetAlert){}
 
   users:any []=[]
@@ -75,7 +76,6 @@ export class AuxiliaryListComponent implements OnInit {
       console.log(this.newUser);
       this._userService.updateUser(this.newUser).subscribe(() => {
         console.log('Usuario actualizado correctamente');
-        // Actualizar la lista de usuarios después de la actualización
         this.ngOnInit();
         const closeButton = document.getElementById('closeButton');
         closeButton?.click();
@@ -85,7 +85,6 @@ export class AuxiliaryListComponent implements OnInit {
         console.error('Error al actualizar usuario:', error);
       });
     } else {
-      // Si el formulario no es válido, mostrar mensajes de validación
       this.formIsValid();
     }
   }
@@ -114,5 +113,8 @@ export class AuxiliaryListComponent implements OnInit {
   resetValidations() {
     this.nameValid = false;
     this.surnameValid = false;
+  }
+  pasarUser(user:any){
+    this._dataService.enviarObjeto(user);
   }
 }
