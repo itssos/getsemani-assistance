@@ -22,5 +22,9 @@ export const routes: Routes = [
     children: [
       { path: 'login', component: LoginComponent }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: 'asistencia'
   }
 ];
