@@ -5,6 +5,8 @@ import { LoginComponent } from './page/login/login.component';
 import { MainComponent } from './layout/main/main.component';
 import { EmptyComponent } from './layout/empty/empty.component';
 import { AuxiliaryComponent } from './page/auxiliary/auxiliary.component';
+import { NotFound404Component } from './page/not-found404/not-found404.component';
+import { SectionComponent } from './page/section/section.component';
 
 export const routes: Routes = [
   {
@@ -13,7 +15,8 @@ export const routes: Routes = [
     children: [
       { path: 'estudiantes', component: StudentComponent },
       { path: 'asistencia', component: AssistanceComponent },
-      { path: 'auxiliar', component: AuxiliaryComponent }
+      { path: 'auxiliar', component: AuxiliaryComponent },
+      { path: 'seccion', component: SectionComponent }
     ]
   },
   {
@@ -25,6 +28,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'asistencia'
+    component: NotFound404Component
   }
 ];

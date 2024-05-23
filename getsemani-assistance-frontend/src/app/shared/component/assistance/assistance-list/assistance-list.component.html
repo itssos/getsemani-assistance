@@ -1,52 +1,52 @@
 <div class="py-4 px-4 mx-auto max-w-5xl lg:py-8">
-    <div class="relative overflow-x-auto shadow-md rounded-lg">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-        <thead class="text-md uppercas bg-gray-600 text-white">
-          <tr>
-            <th scope="col" class="px-6 py-3">
-              Estudiante
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Registrador
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Hora
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Estado
-            </th>
-            <!-- <th scope="col" class="px-6 py-3">
+  <div class="relative overflow-x-auto shadow-md rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+      <thead class="text-md uppercas bg-gray-600 text-white">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            Estudiante
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Registrador
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Hora
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Estado
+          </th>
+          <!-- <th scope="col" class="px-6 py-3">
               Acciones
             </th> -->
-          </tr>
-        </thead>
-        <tbody>
-          @for (assistance of assistanceList; track assistance.id) {
-            <tr>
-              <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                {{assistance.student.surname}} {{assistance.student.name}}
-              </td>
-              <td class="px-6 py-4">
-                {{assistance.user.surname}} {{assistance.user.name}}
-              </td>
-              <td class="px-6 py-4">
-                {{ assistance.date?.toLocaleTimeString() }}
-              </td>
-              <td class="px-6 py-4">
-                @if (assistance.state == "ASISTIO") {
-                  <span class="bg-lime-500 text-white rounded-md px-2">{{assistance.state}}</span>
-                }@else if (assistance.state == "TARDANZA") {
-                  <span class="bg-yellow-400 text-white rounded-md px-2">{{assistance.state}}</span>
-                }@else if (assistance.state == "FALTO"){
-                  <span class="bg-red-500 text-white rounded-md px-2">{{assistance.state}}</span>
-                }
-              </td>
-              <!-- <td class="px-6 py-4">
+        </tr>
+      </thead>
+      <tbody>
+        @for (assistance of assistanceList; track assistance.id) {
+        <tr>
+          <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+            {{assistance.student.surname}} {{assistance.student.name}}
+          </td>
+          <td class="px-6 py-4">
+            {{assistance.user.surname}} {{assistance.user.name}}
+          </td>
+          <td class="px-6 py-4">
+            {{ assistance.date?.toLocaleTimeString() }}
+          </td>
+          <td class="px-6 py-4">
+            @if (assistance.state == "ASISTIO") {
+            <span class="bg-lime-500 text-white rounded-md px-2">{{assistance.state}}</span>
+            }@else if (assistance.state == "TARDANZA") {
+            <span class="bg-yellow-400 text-white rounded-md px-2">{{assistance.state}}</span>
+            }@else if (assistance.state == "FALTO"){
+            <span class="bg-red-500 text-white rounded-md px-2">{{assistance.state}}</span>
+            }
+          </td>
+          <!-- <td class="px-6 py-4">
                 <button class="font-medium text-blue-500 hover:underline">Editar estado</button>
               </td> -->
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
