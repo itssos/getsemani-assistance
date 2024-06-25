@@ -33,6 +33,7 @@ public class UserController {
     public ResponseEntity<User> create(@RequestBody User user){
         return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
     }
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/update")
     public ResponseEntity<User> update(@Valid @RequestBody User user){
