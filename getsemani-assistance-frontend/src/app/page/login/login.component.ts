@@ -13,12 +13,12 @@ import { ILoginRequest } from '../../core/model/login_request.model';
 })
 export class LoginComponent implements OnInit {
 
-  constructor( private formBuilder:FormBuilder,private router:Router,private loginService:LoginService){ };
+  constructor( private formBuilder:FormBuilder,private _router:Router,private loginService:LoginService){ };
 
   errorLogin:String="";
 
   loginForm=this.formBuilder.group({
-    id: ['', [Validators.required,Validators.minLength(6),Validators.maxLength(8),Validators.pattern('^[0-9]+$')]],
+    id: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(8),Validators.pattern('^[0-9]+$')]],
     password:['',Validators.required]
   });
 
@@ -45,9 +45,8 @@ export class LoginComponent implements OnInit {
         },
         complete:()=>{
           this.loginForm.reset();
-          this.router.navigate(['/']).then(() => {
-            window.location.reload();
-          });
+          this._router.navigate(['/']);
+          window.location.reload();
         }
       });
     }else{

@@ -41,7 +41,7 @@ public class User implements UserDetails {
     @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ ]+$", message = "The surname must contain only letters.")
     private String surname;
 
-    @NotBlank(message = "The surname cannot be blank.")
+    @NotBlank(message = "The password cannot be blank.")
     private String password;
 
     @NotBlank(message = "The rol cannot be blank.")

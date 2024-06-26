@@ -33,7 +33,7 @@ public class AuthService {
         id(request.getId()).
         name(request.getName()).
         surname(request.getSurname()).
-        password(passwordEncoder.encode(request.getPassword())).
+        password(passwordEncoder.encode(request.getId())).
         rol(request.getRol()).build();
         userRepository.save(user);
         return AuthResponse.builder().token(jwtService.getToken(user)).build();
