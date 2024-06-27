@@ -26,7 +26,7 @@ export class AuxiliaryListComponent implements OnInit,OnDestroy   {
   }
 
   ngOnDestroy() {
-    this.reloadListSubscription.unsubscribe(); // Desuscribirse para evitar fugas de memoria
+    this.reloadListSubscription.unsubscribe(); 
   }
   
   ngOnInit(): void {

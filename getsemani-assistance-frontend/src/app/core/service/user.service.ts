@@ -22,7 +22,6 @@ export class UserService{
     public getIdUser(id: string):Observable<IUser[]>{
       return this._httpClient.get<IUser[]>(`${this.apiUserUrl}/${id}`);
     }
-
     public createUser(user: IUser):Observable<IUser>{
         return this._httpClient.post<IUser>(`${this.apiUserhostUrl}`,user).pipe(
             catchError((error: HttpErrorResponse) => {
@@ -34,7 +33,6 @@ export class UserService{
             })
           )
     }
-
     public deleteUser(id: string): Observable<void> {
         return this._httpClient.delete<void>(`${this.apiUserUrl}/${id}`).pipe(
           catchError((error: HttpErrorResponse) => {
@@ -45,8 +43,7 @@ export class UserService{
             return throwError(() => new Error(errorMessage));
           })
         );
-      }
-      
+      } 
       public updateUser(user: IUser): Observable<IUser> {
         return this._httpClient.put<IUser>(`${this.apiUserUrl}/update`, user).pipe(
           catchError((error: HttpErrorResponse) => {

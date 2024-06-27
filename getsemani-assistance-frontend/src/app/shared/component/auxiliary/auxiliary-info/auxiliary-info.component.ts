@@ -17,7 +17,7 @@ export class AuxiliaryInfoComponent  implements OnInit{
   state:any;
   isButtonDisabled: boolean = false;
   constructor(private _dataService: dataShared,private _userService:UserService,private _formBuilder: FormBuilder,
-    private _sweetAlert:SweetAlert
+    private _sweetAlert:SweetAlert,private _sharedState:dataShared
   ) { }
 
   ngOnInit() {
@@ -70,6 +70,7 @@ export class AuxiliaryInfoComponent  implements OnInit{
     this.passValid=false;
   }
   us: any = {};
+  
   obtener(id: string){
     this._userService.getIdUser(id).subscribe((user: any) => {
       console.log('Datos del usuario obtenidos:', user);
@@ -100,7 +101,9 @@ export class AuxiliaryInfoComponent  implements OnInit{
         const closeButton = document.getElementById('closeButton');
         closeButton?.click();
         this.formGroup.reset();
-        window.location.reload();
+        //aca
+        this._sharedState.triggerReloadList(); 
+
         this._sweetAlert.alertUpdate();
       }, error => {
         console.error('Error al actualizar usuario:', error);
@@ -113,7 +116,9 @@ export class AuxiliaryInfoComponent  implements OnInit{
     if (confirmacion && this.selectedId !== null) {
       this._userService.deleteUser(this.selectedId).subscribe(() => {
         this._sweetAlert.alertDeleted();
-        window.location.reload();
+        //aca
+        this._sharedState.triggerReloadList(); 
+
       }, error => {
         console.error('Error al eliminar usuario:', error);
       });

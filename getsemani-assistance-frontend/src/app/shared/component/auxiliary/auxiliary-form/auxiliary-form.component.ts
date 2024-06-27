@@ -57,20 +57,15 @@ clickAdd(): void {
     };
 
   if (this.formGroup.valid) {
-
       this._userService.createUser(user).subscribe({
           next: (data: IUser) => {
             console.log('Datos enviados correctamente', data);
           },
           error: (err) => {
             console.error(err);
-            // this.formIsValid();
           },complete:()=>{
             this.formGroup.reset();
             this._sweetAlert.showAlert();
-            // this.resetValidations();
-
-            //falta recarga la lista porque no se muestra
             this._sharedState.triggerReloadList(); 
           }
         });
@@ -78,9 +73,9 @@ clickAdd(): void {
   } else {
     this.formGroup.markAllAsTouched();
     console.warn('¡El formulario no es válido!');
-    // this.formIsValid();
   }
 }
+
 validateDni(control:any) {
   const id = control.value;
   return this._userService.checkDniExists(id).pipe(

@@ -15,24 +15,19 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-
     public User getById(String id){
         return userRepository.findById(id).orElse(null);
     }
-
     public List<User> getAll(){
         return userRepository.findAll();
     }
-
     public User create(User user){
         user.setPassword(user.getId());
         return userRepository.save(user);
     }
-
     public void deleteUser(String id){
         userRepository.deleteById(id);
     }
-
     public User update(User user){
         Optional<User> existingUserOptional = userRepository.findById(user.getId());
         if(existingUserOptional.isPresent()){
