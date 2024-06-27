@@ -41,29 +41,58 @@
           <h1 class="tracking-tight">Getsemaní</h1>
         </div>
         <div class="text-center">
-          <h2 class="text-gray-800 font-bold text-4xl mb-1">Welcome Back</h2>
+          <h2 class="text-gray-800 font-bold text-4xl mb-1">Hola, bienvenido</h2>
           <p class="text-sm font-normal text-gray-400 mb-7">
-            Please login to your account
+            Por favor inicie sesión en su cuenta
           </p>
         </div>
-        <form class="bg-white w-80 sm:w-96 md:w-80 lg:w-96">
+        <form [formGroup]="loginForm" class="bg-white w-80 sm:w-96 md:w-80 lg:w-96">
           <div class="space-y-2">
-
+            <p class="text-red-800">{{errorLogin}}</p>
             <input
+              formControlName="id"
               class="w-full text-base px-4 py-3 border shadow-md border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-              type="number"
+              type="tel"
               placeholder="Ingresa tu DNI"
             />
+            <div class="text-red-800">
+              @if(id.invalid && (id.dirty || id.touched)){
+                
+                @if(id.errors?.['required']){
+                  <div>El DNI es requerido.</div>
+                }
+                @if(id.errors?.['pattern']){
+                  <div>El DNI solo debe contener números.</div>
+                }@else{
+                  @if(id.errors?.['minlength']){
+                    <div>El DNI debe contener como mínimo 8 cifras.</div>
+                  }
+                  @if(id.errors?.['maxlength']){
+                    <div>El DNI debe contener como máximo 8 cifras.</div>
+                  }
+                }
+              }
+            </div>
           </div>
           <div class="space-y-2 my-5">
 
             <input
+              formControlName="password"
               class="w-full content-center text-base px-4 py-3 border shadow-md border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
               type="password"
               placeholder="Ingresa tu contraseña"
             />
+            <div class="text-red-800">
+              @if(password.invalid && (password.dirty || password.touched)){
+                
+                @if(id.errors?.['required']){
+                  <div>La contraseña es requerida.</div>
+                }
+              }
+            </div>
           </div>
           <button
+            (click)="login()"
             type="submit"
             class="block w-full bg-sky-600 mt-4 py-3 rounded-2xl text-white font-semibold mb-2"
           >
@@ -71,7 +100,7 @@
           </button>
           <span
             class="text-sm ml-2 hover:text-blue-500 cursor-pointer flex justify-end text-gray-400"
-            >Forgot Password ?</span
+            >¿Olvidó su contraseña?</span
           >
         </form>
       </div><!--SEGUNDA COLUMNA-->

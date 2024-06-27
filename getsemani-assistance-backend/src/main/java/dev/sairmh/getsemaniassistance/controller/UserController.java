@@ -18,17 +18,14 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable String id){
         return ResponseEntity.ok(userService.getById(id));
     }
-
     @GetMapping
     public ResponseEntity<List<User>> getAll(){
         return ResponseEntity.ok(userService.getAll());
     }
-
     @PostMapping
     public ResponseEntity<User> create(@RequestBody User user){
         return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);

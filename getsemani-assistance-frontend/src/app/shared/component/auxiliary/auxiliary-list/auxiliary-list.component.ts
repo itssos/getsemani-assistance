@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { UserService } from '../../../../core/service/user.service';
 import { SweetAlert } from '../../../../core/service/sweetAlert.service';
 import { dataShared } from '../../../../core/service/dataShared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-auxiliary-list',
@@ -11,22 +12,34 @@ import { dataShared } from '../../../../core/service/dataShared.service';
   styleUrl: './auxiliary-list.component.css'
 })
 
-export class AuxiliaryListComponent implements OnInit {
-  constructor(private _userService:UserService,private _dataService:dataShared ){}
-
+export class AuxiliaryListComponent implements OnInit,OnDestroy   {
+  
+  reloadListSubscription: Subscription;
   userss:any []=[]
 
+  constructor(private _userService:UserService,private _sharedState:dataShared ){
+    this.reloadListSubscription = this._sharedState.reloadList$.subscribe((reload: boolean) => {
+      if (reload) {
+        this.ngOnInit();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.reloadListSubscription.unsubscribe(); 
+  }
   
   ngOnInit(): void {
     this._userService.getAllUser().subscribe((users: any[]) => {
       this.userss = users.filter(user => user.rol === 'AUXILIAR');
       console.log(this.userss);
-
     });
 
 
   }
   pasarUser(user:any,estate:boolean){
-    this._dataService.enviarObjeto(user,estate);
+    this._sharedState.enviarObjeto(user,estate);
   }
+
+  
 }

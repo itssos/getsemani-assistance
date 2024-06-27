@@ -12,6 +12,7 @@ import { catchError } from 'rxjs/operators'
 export class UserService{
 
     private apiUserUrl = this.serverUrlService.getBaseURL()+'user'
+    private apiUserhostUrl = this.serverUrlService.getHostURL()+'auth/register'
     
     constructor(private _httpClient: HttpClient, private serverUrlService: ServerUrlService) {}
 
@@ -22,7 +23,7 @@ export class UserService{
       return this._httpClient.get<IUser[]>(`${this.apiUserUrl}/${id}`);
     }
     public createUser(user: IUser):Observable<IUser>{
-        return this._httpClient.post<IUser>(`${this.apiUserUrl}`,user).pipe(
+        return this._httpClient.post<IUser>(`${this.apiUserhostUrl}`,user).pipe(
             catchError((error: HttpErrorResponse) => {
               let errorMessage = 'An error occurred while saving the user.'
               if (error.error && error.error.errors) {
@@ -32,7 +33,6 @@ export class UserService{
             })
           )
     }
-
     public deleteUser(id: string): Observable<void> {
         return this._httpClient.delete<void>(`${this.apiUserUrl}/${id}`).pipe(
           catchError((error: HttpErrorResponse) => {
@@ -43,8 +43,7 @@ export class UserService{
             return throwError(() => new Error(errorMessage));
           })
         );
-      }
-      
+      } 
       public updateUser(user: IUser): Observable<IUser> {
         return this._httpClient.put<IUser>(`${this.apiUserUrl}/update`, user).pipe(
           catchError((error: HttpErrorResponse) => {
@@ -56,5 +55,7 @@ export class UserService{
           })
         );
       }
-      
+      public checkDniExists(id: string): Observable<boolean> {
+        return this._httpClient.get<boolean>(`${this.apiUserUrl}/${id}`);
+      }
 }

@@ -42,9 +42,16 @@
             formControlName="name"
             required
           />
-          @if(nameValid){
-            <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Ingrese un nombre!</p>
-          }
+          <div class="text-red-800">
+            @if(name.invalid && (name.dirty || name.touched)){
+              @if(name.errors?.['required']){
+                <div class="text-sm">El nombre es requerido.</div>
+              }
+              @if(name.errors?.['pattern']){
+                <div class="text-sm">El nombre debe contener solo letras.</div>
+              }
+            }
+          </div>
         </div>
         <div class="mb-5">
           <label
@@ -60,9 +67,16 @@
             formControlName="surname"
             required
           />
-          @if(surnameValid){
-            <p id="standard_error_help" class="mt-2 text-xs text-red-600">¡Ingrese un apellido!</p>
-          }
+          <div class="text-red-800">
+            @if(surname.invalid && (surname.dirty || surname.touched)){
+              @if(surname.errors?.['required']){
+                <div class="text-sm">El apellido es requerido.</div>
+              }
+              @if(surname.errors?.['pattern']){
+                <div class="text-sm">El apellido debe contener solo letras.</div>
+              }
+            }
+          </div>
         </div>
         <div class="mb-5">
           <label
@@ -79,9 +93,26 @@
             formControlName="id"
             required
           />
-          @if(idValid){
-            <p id="standard_error_help" class="mt-2 text-xs text-red-600">Este DNI no es apropiado o ya existe</p>
+          <div class="text-red-800">
+          @if(id.invalid && (id.dirty || id.touched)){
+            @if(id.errors?.['required']){
+              <div class="text-sm">El DNI es requerido.</div>
+            }
+            @if(id.errors?.['pattern']){
+              <div class="text-sm">El DNI solo debe contener números.</div>
+            }@else{
+              @if(id.errors?.['minlength']){
+                <div class="text-sm">El DNI debe contener como mínimo 8 cifras.</div>
+              }
+              @if(id.errors?.['maxlength']){
+                <div class="text-sm">El DNI debe contener como máximo 8 cifras.</div>
+              }
+              @if(id.errors?.['dniExists']){
+                <div class="text-sm">El DNI ya está registrado.</div>
+              }
+            }
           }
+        </div>
         </div>
   
         
