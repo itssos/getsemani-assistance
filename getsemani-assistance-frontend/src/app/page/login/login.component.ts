@@ -31,27 +31,28 @@ export class LoginComponent implements OnInit {
   get password(){
     return this.loginForm.controls.password;
   }
-
-  login(){
-    if(this.loginForm.valid){
-      this.errorLogin="";
-      this.loginService.login(this.loginForm.value as ILoginRequest).subscribe({
-        next:(userData)=>{
-          console.log(userData);
-        },
-        error:(errorData)=>{
-          console.error(errorData);
-          this.errorLogin=errorData;
-        },
-        complete:()=>{
-          this.loginForm.reset();
-          this._router.navigate(['/']);
-          window.location.reload();
-        }
-      });
-    }else{
-      this.loginForm.markAllAsTouched();
-    }
+login() {
+  if (this.loginForm.valid) {
+    this.errorLogin = "";
+    const requestData = this.loginForm.value as ILoginRequest;
+    this.loginService.login(requestData).subscribe({
+      next: (userData) => {
+        console.log("Datos enviados:", requestData);
+        console.log("Respuesta del servidor:", userData);
+      },
+      error: (errorData) => {
+        console.error("Error en la solicitud:", errorData); 
+        this.errorLogin = errorData.message || "Error desconocido";
+      },
+      complete: () => {
+        this.loginForm.reset();
+        this._router.navigate(['/']);
+        window.location.reload();
+      }
+    });
+  } else {
+    this.loginForm.markAllAsTouched();
   }
+}
 
 }

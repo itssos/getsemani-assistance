@@ -9,6 +9,7 @@ import { NotFound404Component } from './page/not-found404/not-found404.component
 import { SectionComponent } from './page/section/section.component';
 import { authGuard } from './core/guards/auth.guard';
 import { loginGuard } from './core/guards/login.guard';
+import { RoleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
   {
@@ -16,10 +17,10 @@ export const routes: Routes = [
     component: MainComponent,
     canActivate:[authGuard],
     children: [
-      { path: 'estudiantes', component: StudentComponent},
-      { path: 'asistencia', component: AssistanceComponent },
-      { path: 'auxiliar', component: AuxiliaryComponent },
-      { path: 'seccion', component: SectionComponent }
+      { path: 'estudiantes', component: StudentComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN','AUXILIAR']}},
+      { path: 'asistencia', component: AssistanceComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN','AUXILIAR']} },
+      { path: 'auxiliar', component: AuxiliaryComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN']} },
+      { path: 'seccion', component: SectionComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN']} }
     ]
   },
   {
