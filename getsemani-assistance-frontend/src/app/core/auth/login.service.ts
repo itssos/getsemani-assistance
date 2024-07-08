@@ -4,7 +4,6 @@ import { ILoginRequest } from '../model/login_request.model'
 import  {  Observable, throwError, catchError, BehaviorSubject , tap, map} from 'rxjs';
 import { ServerUrlService } from '../service/server-url.service';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +12,7 @@ export class LoginService {
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentUserData: BehaviorSubject<String> =new BehaviorSubject<String>("");
 
-  constructor(private http: HttpClient,private _serverUrlService: ServerUrlService,private _router:Router, private _jwtHelper: JwtHelperService ) { 
+  constructor(private http: HttpClient,private _serverUrlService: ServerUrlService,private _router:Router) { 
     this.currentUserLoginOn=new BehaviorSubject<boolean>(localStorage.getItem("token")!=null);
     this.currentUserData=new BehaviorSubject<String>(localStorage.getItem("token") || "");
   }
@@ -60,27 +59,5 @@ export class LoginService {
 
   get userToken():String{
     return this.currentUserData.value;
-  }
-
-  getUserIdFromToken(): string | null {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const decodedToken = this._jwtHelper.decodeToken(token);
-        console.log(decodedToken);
-        if (decodedToken && decodedToken.sub) {
-          return decodedToken.sub;
-        } else {
-          console.error('Token JWT no contiene el ID de usuario.');
-          return null;
-        }
-      } catch (error) {
-        console.error('Error al decodificar el token JWT:', error);
-        return null;
-      }
-    } else {
-      console.error('Token JWT no encontrado en el almacenamiento.');
-      return null;
-    }
   }
 }
