@@ -35,8 +35,8 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student getStudentById(String id){
-        return studentRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+    public Student getStudentByDni(String dni){
+        return studentRepository.findByDni(dni);
     }
 
     public List<Student> getStudentsByGradeAndSection(String grade, String section) {

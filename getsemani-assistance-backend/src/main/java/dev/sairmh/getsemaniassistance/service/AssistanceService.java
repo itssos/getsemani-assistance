@@ -46,11 +46,11 @@ public class AssistanceService {
             return prevAssistance;
         } else {
             LocalTime time = assistance.getDate().toLocalTime();
-            if (time.isAfter(LocalTime.of(15,0)) && time.isBefore(LocalTime.of(18, 45))) {
+            if (time.isAfter(LocalTime.of(18,0)) && time.isBefore(LocalTime.of(21, 00))) {
                 assistance.setState("ASISTIO");
-            } else if (time.isAfter(LocalTime.of(18,46)) && time.isBefore(LocalTime.of(18, 59))) {
+            } else if (time.isAfter(LocalTime.of(21,1)) && time.isBefore(LocalTime.of(21, 10))) {
                 assistance.setState("TARDANZA");
-            } else if (time.isAfter(LocalTime.of(19,0))) {
+            } else if (time.isAfter(LocalTime.of(21,11))) {
                 assistance.setState("FALTO");
             } else {
                 return null;

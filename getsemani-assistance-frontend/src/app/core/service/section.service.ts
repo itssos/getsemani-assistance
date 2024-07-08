@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ServerUrlService } from './server-url.service';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { ISection } from '../model/section.model';
 
 @Injectable({
@@ -22,6 +22,30 @@ export class SectionService {
 
   public getByName(name: string): Observable<ISection> {
     return this._httpClient.get<ISection>(`${this.apiUrl}/name=${name}`)
+  }
+
+  public saveSection(section: ISection): Observable<ISection> {
+    return this._httpClient.post<ISection>(`${this.apiUrl}`, section).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'An error occurred while saving the student.'
+        if (error.error && error.error.errors) {
+          errorMessage = error.error.errors.join('\n')
+        }
+        return throwError(() => new Error(errorMessage))
+      })
+    )
+  }
+
+  public updateSection(section: ISection): Observable<ISection> {
+    return this._httpClient.put<ISection>(`${this.apiUrl}`, section).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'An error occurred while saving the student.'
+        if (error.error && error.error.errors) {
+          errorMessage = error.error.errors.join('\n')
+        }
+        return throwError(() => new Error(errorMessage))
+      })
+    )
   }
 
 }
