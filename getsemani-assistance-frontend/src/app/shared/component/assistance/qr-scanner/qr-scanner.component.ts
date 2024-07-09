@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ZXingScannerComponent, ZXingScannerModule } from '@zxing/ngx-scanner';
 import { BarcodeFormat} from '@zxing/library';
 import { BehaviorSubject } from 'rxjs';
@@ -8,6 +8,9 @@ import { AssistanceService } from '../../../../core/service/assistance.service';
 import { IAssistance } from '../../../../core/model/assistance.model';
 import { IUser } from '../../../../core/model/user.model';
 import { SweetAlert } from '../../../../core/service/sweetAlert.service';
+import { LoginService } from '../../../../core/auth/login.service';
+import { UserService } from '../../../../core/service/user.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-qr-scanner',
@@ -16,9 +19,12 @@ import { SweetAlert } from '../../../../core/service/sweetAlert.service';
   templateUrl: './qr-scanner.component.html',
   styleUrl: './qr-scanner.component.css'
 })
-export class QrScannerComponent {
+export class QrScannerComponent implements OnInit {
 
   constructor(
+    private _loginService: LoginService,
+    private _userService: UserService,
+    private _jwtHelper: JwtHelperService,
     private _studentService: StudentService,
     private _assistanceService: AssistanceService,
     private _sweetAlert: SweetAlert
@@ -44,11 +50,11 @@ export class QrScannerComponent {
   }
 
   userRegisterAssistance: IUser = {
-    id: '11111111',
-    name: 'AUXILIAR',
-    surname: 'AUXILIAR',
-    password: 'AUXILIAR',
-    rol: 'AUXILIAR'
+    id: '',
+    name: '',
+    surname: '',
+    password: '',
+    rol: ''
   }
 
   assistanceQr: IAssistance = {
@@ -57,11 +63,40 @@ export class QrScannerComponent {
     state: ''
   }
 
+  ngOnInit(): void {
+    this._loginService.currentUserData.subscribe((value: any) => {
+      const token = value.toString();
+      const decodedToken = this._jwtHelper.decodeToken(token);
+      const userId: string = decodedToken.sub;
+
+      if (userId) {
+        this._userService.getIdUser(userId).subscribe(
+          (user: IUser) => {
+            this.userRegisterAssistance.id = user.id;
+            this.userRegisterAssistance.name = user.name;
+            this.userRegisterAssistance.surname = user.surname;
+            this.userRegisterAssistance.rol = user.rol;
+            this.assistanceQr.user = this.userRegisterAssistance
+
+            console.log(this.assistanceQr)
+
+          },
+          (error) => {
+            console.error('Error al obtener detalles del usuario', error);
+          }
+        );
+      }
+    });
+  }
+
+
+
   loadStudentById(id: string): void {
     this._studentService.getStudentById(id).subscribe({
       next: (data: IStudentBackend | null) => {
         if (data) {
           this.assistanceQr.student = data;
+          console.log(this.assistanceQr);
           this.registerAssistance(this.assistanceQr);
         } else {
           this._sweetAlert.notFoundStudentById();
@@ -164,3 +199,5 @@ export class QrScannerComponent {
     }
   }
 }
+
+

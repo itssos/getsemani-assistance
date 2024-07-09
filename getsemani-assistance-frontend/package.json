@@ -21,6 +21,7 @@
     "@zxing/browser": "^0.1.4",
     "@zxing/library": "^0.20.0",
     "@zxing/ngx-scanner": "^17.0.3",
+    "angularx-qrcode": "^17.0.1",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
     "flowbite": "^2.3.0",

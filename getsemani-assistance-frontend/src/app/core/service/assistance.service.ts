@@ -1,5 +1,5 @@
 import { ServerUrlService } from './server-url.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IAssistance } from '../model/assistance.model';
 import { Observable } from 'rxjs';
@@ -15,6 +15,23 @@ export class AssistanceService {
 
   public getAll(): Observable<IAssistance[]>{
     return this._httpClient.get<IAssistance[]>(`${this.apiUrl}`)
+  }
+
+  public getFilteredAssistance(day: number, month: number, grade: string, section: string): Observable<IAssistance[]> {
+    let params = new HttpParams();
+    if (day) {
+      params = params.set('day', day.toString());
+    }
+    if (month) {
+      params = params.set('month', month.toString());
+    }
+    if (grade) {
+      params = params.set('grade', grade);
+    }
+    if (section) {
+      params = params.set('section', section);
+    }
+    return this._httpClient.get<IAssistance[]>(`${this.apiUrl}`, { params: params });
   }
 
   public registerAssistance(assistance: IAssistance): Observable<IAssistance> {

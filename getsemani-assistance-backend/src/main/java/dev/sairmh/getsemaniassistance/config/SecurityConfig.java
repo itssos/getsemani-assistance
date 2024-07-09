@@ -35,7 +35,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST,"/api/user/**").hasAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE,"/api/user/**").hasAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.PUT,"/api/user/**").hasAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.GET,"/api/section").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.GET,"/api/section").hasAnyAuthority("ADMIN","AUXILIAR")
+                                .requestMatchers(HttpMethod.POST,"/api/assistance").hasAnyAuthority("AUXILIAR")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager->

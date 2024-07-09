@@ -5,16 +5,22 @@ import dev.sairmh.getsemaniassistance.model.Grade;
 import dev.sairmh.getsemaniassistance.model.Student;
 import dev.sairmh.getsemaniassistance.model.User;
 import dev.sairmh.getsemaniassistance.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
     public User getById(String id){
         return userRepository.findById(id).orElse(null);
     }
@@ -22,7 +28,7 @@ public class UserService {
         return userRepository.findAll();
     }
     public User create(User user){
-        user.setPassword(user.getId());
+        user.setPassword(passwordEncoder.encode(user.getId()));
         return userRepository.save(user);
     }
     public void deleteUser(String id){
@@ -34,7 +40,8 @@ public class UserService {
             User existingUser = existingUserOptional.get();
             existingUser.setName(user.getName());
             existingUser.setSurname(user.getSurname());
-            return userRepository.save(user);
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            return userRepository.save(existingUser);
         }
         return null;
     }

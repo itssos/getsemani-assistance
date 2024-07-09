@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AssistanceService {
@@ -17,11 +19,25 @@ public class AssistanceService {
 
     public List<Assistance> getAllAssistance(){
         return assistanceRepository.findAll();
+
     }
 
-//    public Assistance create(Assistance assistance){
-//        return assistanceRepository.save(assistance);
-//    }
+    public List<Assistance> getFilteredAssistances(String gradeName, String sectionName, int day, int month) {
+        LocalDateTime startOfDay = LocalDateTime.now().withDayOfMonth(day).withMonth(month).withHour(0).withMinute(0).withSecond(0);
+        LocalDateTime endOfDay = startOfDay.withHour(23).withMinute(59).withSecond(59);
+
+        return assistanceRepository.findByStudent_Grade_NameAndStudent_Section_NameAndDateBetween(
+                gradeName, sectionName, startOfDay, endOfDay);
+    }
+
+    public List<Assistance> getAssistancesByState(String gradeName, String sectionName, int day, int month, String state) {
+        LocalDateTime startOfDay = LocalDateTime.now().withDayOfMonth(day).withMonth(month).withHour(0).withMinute(0).withSecond(0);
+        LocalDateTime endOfDay = startOfDay.withHour(23).withMinute(59).withSecond(59);
+
+        return assistanceRepository.findByStudent_Grade_NameAndStudent_Section_NameAndDateBetweenAndState(
+                gradeName, sectionName, startOfDay, endOfDay, state);
+    }
+
 
     public Assistance create(Assistance assistance) {
         List<Assistance> assistancesStudent = assistanceRepository.findByStudent(assistance.getStudent());
@@ -33,20 +49,10 @@ public class AssistanceService {
         if (existingAssistance.isPresent()) {
             // ----------- LOGICA DE REGISTRO DE SALIDA
             Assistance prevAssistance = existingAssistance.get();
-//            if (prevAssistance.getState().equals("ASISTIO") || prevAssistance.getState().equals("TARDANZA")) {
-//                LocalTime limitTime = LocalTime.of(14, 0); // Hora límite a las 2:00 PM
-//                if (assistance.getDate().toLocalTime().isAfter(limitTime)) {
-//                    prevAssistance.setState("SALIDA");
-//                    return assistanceRepository.save(prevAssistance);
-//                }
-//                return null;
-//            } else {
-//                return null;
-//            }
             return prevAssistance;
         } else {
             LocalTime time = assistance.getDate().toLocalTime();
-            if (time.isAfter(LocalTime.of(18,0)) && time.isBefore(LocalTime.of(21, 00))) {
+            if (time.isAfter(LocalTime.of(7,0)) && time.isBefore(LocalTime.of(21, 00))) {
                 assistance.setState("ASISTIO");
             } else if (time.isAfter(LocalTime.of(21,1)) && time.isBefore(LocalTime.of(21, 10))) {
                 assistance.setState("TARDANZA");
@@ -55,6 +61,7 @@ public class AssistanceService {
             } else {
                 return null;
             }
+            System.out.println(assistance.toString());
             return assistanceRepository.save(assistance);
         }
     }

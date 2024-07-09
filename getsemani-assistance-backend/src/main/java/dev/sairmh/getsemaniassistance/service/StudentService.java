@@ -35,6 +35,9 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    public Student getStudentById(String id){
+        return studentRepository.findById(id).orElseThrow(null);
+    }
     public Student getStudentByDni(String dni){
         return studentRepository.findByDni(dni);
     }

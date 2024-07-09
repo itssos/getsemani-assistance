@@ -17,17 +17,16 @@ public class AssistanceController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public ResponseEntity<List<Assistance>> getAllAssistance(){
-        return ResponseEntity.ok(assistanceService.getAllAssistance());
+    public ResponseEntity<List<Assistance>> getAllAssistance(
+            @RequestParam(required = false) String grade,
+            @RequestParam(required = false) String section,
+            @RequestParam(required = false) Integer day,
+            @RequestParam(required = false) Integer month
+    ){
+        List<Assistance> filteredAssistances = assistanceService.getFilteredAssistances(grade, section, day, month);
+        return ResponseEntity.ok(filteredAssistances);
     }
-    // ORIGINAL
-//    @CrossOrigin(origins = "*", allowedHeaders = "*")
-//    @PostMapping
-//    public ResponseEntity<Assistance> create(@RequestBody Assistance assistance){
-//        return new ResponseEntity<>(assistanceService.create(assistance), HttpStatus.CREATED);
-//    }
 
-    // PRUEBA
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<Assistance> create(@RequestBody Assistance assistance){

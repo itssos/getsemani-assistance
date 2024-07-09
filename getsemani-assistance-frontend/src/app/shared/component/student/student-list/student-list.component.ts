@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { FormBuilder, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IStudent } from '../../../../core/model/student.model';
-import { StudentService } from '../../../../core/service/student.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IStudentBackend } from '../../../../core/model/student_backend.model';
+import { StudentService } from '../../../../core/service/student.service';
 import { GradeService } from '../../../../core/service/grade.service';
 import { SectionService } from '../../../../core/service/section.service';
 import { EducationLevelService } from '../../../../core/service/education_level.service';
 import { IEducationLevel } from '../../../../core/model/education_level.model';
 import { IGrade } from '../../../../core/model/grade.model';
 import { ISection } from '../../../../core/model/section.model';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, QRCodeModule],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.css'
 })
@@ -39,7 +39,6 @@ export class StudentListComponent {
   })
 
   ngOnInit(): void {
-    //this.loadStudentsByGradeAndSection("5", "A")
     this.loadEducationLevel()
   }
 
@@ -53,7 +52,6 @@ export class StudentListComponent {
           this.studentList = data;
           console.log(educationLevel+grade+section);
           console.log(data);
-
         },
         error:(err) => {
           console.log(err);
@@ -114,4 +112,16 @@ export class StudentListComponent {
   sectionValid = false
   educationLevelValid = false
 
+  downloadQR(studentId: string): void {
+    const canvas = document.querySelector(`#qr-${studentId} canvas`);
+    if (canvas) {
+      const dataURL = (canvas as HTMLCanvasElement).toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = `qr-code-${studentId}.png`;
+      link.click();
+    } else {
+      console.error(`Canvas not found for studentId ${studentId}`);
+    }
+  }
 }

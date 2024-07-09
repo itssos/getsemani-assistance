@@ -32,8 +32,13 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAllStudents());
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("/{dni}")
-    public ResponseEntity<Student> getStudentById(@PathVariable String dni){
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable String id){
+        return ResponseEntity.ok(studentService.getStudentById(id));
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("dni/{dni}")
+    public ResponseEntity<Student> getStudentByDni(@PathVariable String dni){
         return ResponseEntity.ok(studentService.getStudentByDni(dni));
     }
 
