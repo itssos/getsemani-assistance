@@ -1,54 +1,58 @@
 <div class="py-4 px-4 mx-auto max-w-5xl lg:py-8">
+  <div class="filters flex flex-col lg:flex-row items-center justify-evenly mb-10">
+    <div class="flex flex-wrap items-center justify-center">
 
-  <div class="filters">
-    <label for="day">Day:</label>
-    <select id="day" (change)="onFiltersChanged()">
-      <option value="9">9</option>
-      <!-- Opciones dinámicas para días -->
-    </select>
+      <div class="flex flex-col pr-1 lg:pr-3">
+        <label class="px-5" for="day">Día:</label>
+        <select class="rounded-2xl" id="día" (change)="onFiltersChanged()">
+          <option value="" disabled selected>Día</option>
+        <!-- Opciones dinámicas para días -->
+        </select>
+        
+      </div>
 
-    <label for="month">Month:</label>
-    <select id="month" (change)="onFiltersChanged()">
-      <option value="7">7</option>
-      <!-- Opciones dinámicas para meses -->
-    </select>
+      <div class="flex flex-col pr-1 lg:pr-3">
+        <label class="px-5" for="month">Mes:</label>
+        <select class="rounded-2xl" id="month" (change)="onFiltersChanged()">
+          <option value="" disabled selected>Mes</option>
+          <!-- Opciones dinámicas para meses -->
+        </select>
+      </div>
 
-    <label for="grade">Grade:</label>
-    <select id="grade" (change)="onFiltersChanged()">
-      <option value="5">5</option>
-      <!-- Opciones dinámicas para grados -->
-    </select>
+      <div class="flex flex-col pr-1 lg:pr-3">
+        <label class="px-5" for="grade">Grado:</label>
+        <select class="rounded-2xl" id="grade" (change)="onFiltersChanged()">
+          <option value="" disabled selected>Grado</option>
+          <!-- Opciones dinámicas para grados -->
+        </select>
+      </div>
 
-    <label for="section">Section:</label>
-    <select id="section" (change)="onFiltersChanged()">
-      <option value="A">A</option>
-      <!-- Opciones dinámicas para secciones -->
-    </select>
-
-    <button (click)="onFiltersChanged()">Apply Filters</button>
+      <div class="flex flex-col pr-1 lg:pr-3">
+        <label class="px-5" for="section">Sección:</label>
+        <select class="rounded-2xl" id="section" (change)="onFiltersChanged()">
+          <option value="" disabled selected>Sección</option>
+          <!-- Opciones dinámicas para secciones -->
+        </select>
+      </div>
+    </div>
+    <button
+      (click)="onFiltersChanged()" disabled
+      type="button"
+      class="mt-5 cursor-not-allowed  focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+    >
+      Aplicar Filtro
+    </button>
   </div>
-
-
 
   <div class="relative overflow-x-auto shadow-md rounded-lg">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
       <thead class="text-md uppercas bg-gray-600 text-white">
         <tr>
-          <th scope="col" class="px-6 py-3">
-            Estudiante
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Registrador
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Fecha
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Hora
-          </th>
-          <th scope="col" class="px-6 py-3">
-            Estado
-          </th>
+          <th scope="col" class="px-6 py-3">Estudiante</th>
+          <th scope="col" class="px-6 py-3">Registrador</th>
+          <th scope="col" class="px-6 py-3">Fecha</th>
+          <th scope="col" class="px-6 py-3">Hora</th>
+          <th scope="col" class="px-6 py-3">Estado</th>
           <!-- <th scope="col" class="px-6 py-3">
               Acciones
             </th> -->
@@ -57,25 +61,41 @@
       <tbody>
         @for (assistance of assistanceList; track assistance.id) {
         <tr>
-          <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-            {{assistance.student.surname}} {{assistance.student.name}}
+          <td
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+          >
+            {{ assistance.student.surname }} {{ assistance.student.name }}
           </td>
           <td class="px-6 py-4">
-            {{assistance.user.surname}} {{assistance.user.name}}
+            {{ assistance.user.surname }} {{ assistance.user.name }}
           </td>
           <td class="px-6 py-4">
-            {{ assistance.date?.toLocaleDateString('es-ES', { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit' }) }}
+            {{
+              assistance.date?.toLocaleDateString("es-ES", {
+                weekday: "short",
+                year: "numeric",
+                month: "short",
+                day: "2-digit"
+              })
+            }}
           </td>
           <td class="px-6 py-4">
             {{ assistance.date?.toLocaleTimeString() }}
           </td>
           <td class="px-6 py-4">
             @if (assistance.state == "ASISTIO") {
-            <span class="bg-lime-500 text-white rounded-md px-2">{{assistance.state}}</span>
+            <span class="bg-lime-500 text-white rounded-md px-2">{{
+              assistance.state
+            }}</span>
             }@else if (assistance.state == "TARDANZA") {
-            <span class="bg-yellow-400 text-white rounded-md px-2">{{assistance.state}}</span>
+            <span class="bg-yellow-400 text-white rounded-md px-2">{{
+              assistance.state
+            }}</span>
             }@else if (assistance.state == "FALTO"){
-            <span class="bg-red-500 text-white rounded-md px-2">{{assistance.state}}</span>
+            <span class="bg-red-500 text-white rounded-md px-2">{{
+              assistance.state
+            }}</span>
             }
           </td>
           <!-- <td class="px-6 py-4">
