@@ -42,7 +42,7 @@ public class AssistanceService {
             return prevAssistance;
         } else {
             LocalTime time = assistance.getDate().toLocalTime();
-            if (time.isAfter(LocalTime.of(7, 0)) && time.isBefore(LocalTime.of(21, 0))) {
+            if (time.isAfter(LocalTime.of(1, 0)) && time.isBefore(LocalTime.of(21, 0))) {
                 assistance.setState("ASISTIO");
             } else if (time.isAfter(LocalTime.of(21, 1)) && time.isBefore(LocalTime.of(21, 10))) {
                 assistance.setState("TARDANZA");

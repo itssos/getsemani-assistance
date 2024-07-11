@@ -11,7 +11,7 @@
   </div>
   <div id="default-styled-tab-content">
   <div class="hidden" id="styled-add" role="tabpanel" aria-labelledby="add-tab">
-    @if ((timeHour >= 7 && timeMinute >= 0) && (timeHour <= 21)) {
+    @if ((timeHour >= 1 && timeMinute >= 0) && (timeHour <= 21)) {
       <app-qr-scanner></app-qr-scanner>
     }@else{
       <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
