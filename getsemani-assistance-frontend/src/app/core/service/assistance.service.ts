@@ -37,5 +37,19 @@ export class AssistanceService {
   public registerAssistance(assistance: IAssistance): Observable<IAssistance> {
     return this._httpClient.post<IAssistance>(`${this.apiUrl}`, assistance);
   }
-
+  
+  public getStudentsWithTardiness(): Observable<any[]> {
+    const url = `${this.apiUrl}/students/tardiness`; 
+    return this._httpClient.get<any[]>(url);
+  }
+  public getAssistancesByUser(): Observable<any[]> {
+    return this._httpClient.get<any[]>(`${this.apiUrl}/assistances`);
+  }
+  public getAssistanceCounts(): Observable<any> {
+    const url = `${this.apiUrl}/counts`;
+    return this._httpClient.get<any>(url);
+  }
+  public getTardinessCounts(): Observable<any[]> {
+    return this._httpClient.get<any[]>(`${this.apiUrl}/tardiness-counts`);
+  }
 }

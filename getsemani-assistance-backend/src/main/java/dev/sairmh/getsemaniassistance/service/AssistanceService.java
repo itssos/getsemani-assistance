@@ -65,5 +65,16 @@ public class AssistanceService {
             return assistanceRepository.save(assistance);
         }
     }
-
+    public List<Object[]> findStudentsWithTardiness() {
+        return assistanceRepository.findStudentsWithTardiness();
+    }
+    public List<Object[]> getAssistancesByUser() {
+        return assistanceRepository.findAssistancesByUser();
+    }
+    public List<Object[]> countAssistanceStates() {
+        return assistanceRepository.countAssistanceStates();
+    }
+    public List<Object[]> findTardinessCounts() {
+        return assistanceRepository.findTardinessCounts();
+    }
 }

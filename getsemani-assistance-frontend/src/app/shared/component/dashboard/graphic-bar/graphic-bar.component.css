@@ -1,0 +1,6 @@
+.chartjs-bar-label {
+    white-space: nowrap; /* Prevent wrapping initially */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+    max-width: 150px; /* Set your desired maximum width */
+  }

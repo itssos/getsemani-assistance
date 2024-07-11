@@ -10,6 +10,7 @@ import { SectionComponent } from './page/section/section.component';
 import { authGuard } from './core/guards/auth.guard';
 import { loginGuard } from './core/guards/login.guard';
 import { RoleGuard } from './core/guards/role.guard';
+import { DashboardComponent } from './page/dashboard/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,7 @@ export const routes: Routes = [
     component: MainComponent,
     canActivate:[authGuard],
     children: [
+      { path: 'dashboard', component: DashboardComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN','AUXILIAR']}},
       { path: 'estudiantes', component: StudentComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN','AUXILIAR']}},
       { path: 'asistencia', component: AssistanceComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN','AUXILIAR']} },
       { path: 'auxiliar', component: AuxiliaryComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN']} },

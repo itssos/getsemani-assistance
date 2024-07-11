@@ -33,4 +33,28 @@ public class AssistanceController {
         return  new ResponseEntity<>(assistanceService.create(assistance), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/students/tardiness")
+    public ResponseEntity<List<Object[]>> getStudentsWithTardiness() {
+        List<Object[]> students = assistanceService.findStudentsWithTardiness();
+        return ResponseEntity.ok(students);
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/assistances")
+    public ResponseEntity<List<Object[]>> getAssistancesByUser() {
+        List<Object[]> user = assistanceService.getAssistancesByUser();
+        return ResponseEntity.ok(user);
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/counts")
+    public ResponseEntity<List<Object[]>> getAssistanceCounts() {
+        List<Object[]> counts = assistanceService.countAssistanceStates();
+        return ResponseEntity.ok(counts);
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/tardiness-counts")
+    public ResponseEntity<List<Object[]>> getTardinessCounts() {
+        List<Object[]> counts = assistanceService.findTardinessCounts();
+        return ResponseEntity.ok(counts);
+    }
 }
