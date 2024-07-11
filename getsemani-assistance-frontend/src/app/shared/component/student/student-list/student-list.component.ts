@@ -9,6 +9,8 @@ import { IEducationLevel } from '../../../../core/model/education_level.model';
 import { IGrade } from '../../../../core/model/grade.model';
 import { ISection } from '../../../../core/model/section.model';
 import { QRCodeModule } from 'angularx-qrcode';
+import {jsPDF} from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-student-list',
@@ -124,4 +126,19 @@ export class StudentListComponent {
       console.error(`Canvas not found for studentId ${studentId}`);
     }
   }
+
+  generatePDF(studentId: string) {
+    const studentCarnet: any = document.getElementById(`studentCarnet-${studentId}`);
+    if (studentCarnet) {
+      html2canvas(studentCarnet, { scale: 2 }).then((canvas) => {
+        const pdf = new jsPDF();
+        const imgHeight = canvas.height * 70 / canvas.width;
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 70, imgHeight);
+        pdf.save(`carnet-${studentId}.pdf`);
+      });
+    } else {
+      console.error(`Element with ID studentCarnet-${studentId} not found`);
+    }
+  }
+
 }

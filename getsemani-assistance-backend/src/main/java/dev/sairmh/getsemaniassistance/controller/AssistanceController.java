@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -18,12 +19,13 @@ public class AssistanceController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public ResponseEntity<List<Assistance>> getAllAssistance(
+            @RequestParam(required = false) String education,
             @RequestParam(required = false) String grade,
             @RequestParam(required = false) String section,
-            @RequestParam(required = false) Integer day,
-            @RequestParam(required = false) Integer month
-    ){
-        List<Assistance> filteredAssistances = assistanceService.getFilteredAssistances(grade, section, day, month);
+            @RequestParam(required = false) LocalDateTime startDate,
+            @RequestParam(required = false) LocalDateTime endDate
+    ) {
+        List<Assistance> filteredAssistances = assistanceService.getFilteredAssistances(education, grade, section, startDate, endDate);
         return ResponseEntity.ok(filteredAssistances);
     }
 

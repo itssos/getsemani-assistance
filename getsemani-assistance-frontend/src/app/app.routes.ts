@@ -11,6 +11,8 @@ import { authGuard } from './core/guards/auth.guard';
 import { loginGuard } from './core/guards/login.guard';
 import { RoleGuard } from './core/guards/role.guard';
 import { DashboardComponent } from './page/dashboard/dashboard/dashboard.component';
+import { GradeComponent } from './page/grade/grade.component';
+
 
 export const routes: Routes = [
   {
@@ -22,7 +24,8 @@ export const routes: Routes = [
       { path: 'estudiantes', component: StudentComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN','AUXILIAR']}},
       { path: 'asistencia', component: AssistanceComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN','AUXILIAR']} },
       { path: 'auxiliar', component: AuxiliaryComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN']} },
-      { path: 'seccion', component: SectionComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN']} }
+      { path: 'seccion', component: SectionComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN']} },
+      { path: 'grado', component: GradeComponent,canActivate:[RoleGuard],data:{allowedRoles:['ADMIN']} },
     ]
   },
   {

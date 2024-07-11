@@ -86,7 +86,10 @@
           Sección
         </th>
         <th scope="col" class="px-6 py-3 text-center border border-gray-300">
-          Código QR
+          QR
+        </th>
+        <th scope="col" class="px-6 py-3 text-center border border-gray-300">
+          Plantilla
         </th>
       </tr>
     </thead>
@@ -112,12 +115,20 @@
           {{student.section.name}}
         </td>
         <td class="text-center">
-
           <button (click)="downloadQR(student.id)">
             <div style="width: 64px">
               <qrcode [qrdata]="student.id" [width]="512" id="qr-{{student.id}}"></qrcode>
             </div>
           </button>
+        </td>
+        <td class="text-center">
+          <button (click)="generatePDF(student.id)">Descargar</button>
+          <div class="border-blue-500 border-8 rounded-2xl p-3 pb-7 overflow-hidden w-96" id="studentCarnet-{{student.id}}" style="position: absolute; top: -999px;">
+            <qrcode [qrdata]="student.id" [width]="256"></qrcode>
+            <p class="w-full text-3xl mb-3 text-black">{{student.name}} {{student.surname}}</p>
+            <p class="mb-3 w-full text-3xl text-black">{{student.educationLevel.name}}</p>
+            <p class="w-full text-3xl text-black">{{student.grade.name}} "{{student.section.name}}"</p>
+          </div>
         </td>
       </tr>
       } @empty {

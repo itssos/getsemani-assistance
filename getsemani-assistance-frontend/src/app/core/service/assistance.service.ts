@@ -17,19 +17,22 @@ export class AssistanceService {
     return this._httpClient.get<IAssistance[]>(`${this.apiUrl}`)
   }
 
-  public getFilteredAssistance(day: number, month: number, grade: string, section: string): Observable<IAssistance[]> {
+  public getFilteredAssistance(education: string, grade: string, section: string, startDate: string, endDate: string): Observable<IAssistance[]> {
     let params = new HttpParams();
-    if (day) {
-      params = params.set('day', day.toString());
-    }
-    if (month) {
-      params = params.set('month', month.toString());
+    if (education) {
+      params = params.set('education', education);
     }
     if (grade) {
       params = params.set('grade', grade);
     }
     if (section) {
       params = params.set('section', section);
+    }
+    if (startDate) {
+      params = params.set('startDate', startDate);
+    }
+    if (endDate) {
+      params = params.set('endDate', endDate);
     }
     return this._httpClient.get<IAssistance[]>(`${this.apiUrl}`, { params: params });
   }

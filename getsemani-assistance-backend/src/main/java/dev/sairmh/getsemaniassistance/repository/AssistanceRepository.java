@@ -13,11 +13,11 @@ import java.util.List;
 public interface AssistanceRepository extends JpaRepository<Assistance, Integer> {
     List<Assistance> findByStudent(Student student);
 
-    List<Assistance> findByStudent_Grade_NameAndStudent_Section_NameAndDateBetween(
-            String gradeName, String sectionName, LocalDateTime startDate, LocalDateTime endDate);
+    List<Assistance> findByStudent_EducationLevel_NameAndStudent_Grade_NameAndStudent_Section_NameAndDateBetween(
+            String educationName, String gradeName, String sectionName, LocalDateTime startDate, LocalDateTime endDate);
 
-    List<Assistance> findByStudent_Grade_NameAndStudent_Section_NameAndDateBetweenAndState(
-            String gradeName, String sectionName, LocalDateTime startDate, LocalDateTime endDate, String state);
+    List<Assistance> findByStudent_EducationLevel_NameAndStudent_Grade_NameAndStudent_Section_NameAndDateBetweenAndState(
+            String educationName, String gradeName, String sectionName, LocalDateTime startDate, LocalDateTime endDate, String state);
 
 
 

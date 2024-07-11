@@ -1,51 +1,80 @@
 <div class="py-4 px-4 mx-auto max-w-5xl lg:py-8">
-  <div class="filters flex flex-col lg:flex-row items-center justify-evenly mb-10">
-    <div class="flex flex-wrap items-center justify-center">
-
-      <div class="flex flex-col pr-1 lg:pr-3">
-        <label class="px-5" for="day">Día:</label>
-        <select class="rounded-2xl" id="día" (change)="onFiltersChanged()">
-          <option value="" disabled selected>Día</option>
-        <!-- Opciones dinámicas para días -->
-        </select>
-        
-      </div>
-
-      <div class="flex flex-col pr-1 lg:pr-3">
-        <label class="px-5" for="month">Mes:</label>
-        <select class="rounded-2xl" id="month" (change)="onFiltersChanged()">
-          <option value="" disabled selected>Mes</option>
-          <!-- Opciones dinámicas para meses -->
+  <form class="filters flex flex-col lg:flex-row mb-10" [formGroup]="formGroup">
+    <div class="flex flex-wrap flex-col md:flex-row items-center justify-center w-full">
+      <div class="flex flex-col pr-1 lg:pr-3 w-full md:w-36">
+        <select class="rounded-2xl" id="educacion" formControlName="education" (change)="onEducationLevelChange()">
+          <option value="" disabled selected>Educacion</option>
+          @for (educationLevel of educationLevels; track educationLevel.id) {
+            <option [value]="educationLevel.name">{{ educationLevel.name }}</option>
+          }
         </select>
       </div>
+      @if (grades.length > 0) {
+        <div class="flex flex-col pr-1 lg:pr-3 w-full md:w-28 mt-2 md:m-0">
+          <select class="rounded-2xl" id="grade" formControlName="grade">
+            <option value="" disabled selected>Grado</option>
+            @for (grade of grades; track grade.id) {
+              <option [value]="grade.name">{{ grade.name }}</option>
+            }
+          </select>
+        </div>
+      }
 
-      <div class="flex flex-col pr-1 lg:pr-3">
-        <label class="px-5" for="grade">Grado:</label>
-        <select class="rounded-2xl" id="grade" (change)="onFiltersChanged()">
-          <option value="" disabled selected>Grado</option>
-          <!-- Opciones dinámicas para grados -->
-        </select>
+      @if (sections.length > 0) {
+        <div class="flex flex-col pr-1 lg:pr-3 w-full md:w-28 mt-2 md:m-0">
+          <select class="rounded-2xl" id="section" formControlName="section">
+            <option value="" disabled selected>Sección</option>
+            @for (section of sections; track section.id) {
+              <option [value]="section.name">{{ section.name }}</option>
+            }
+          </select>
+        </div>
+      }
+
+      <div class="flex w-full md:w-80">
+        <div class="flex flex-col pr-1 lg:pr-3 mt-2 w-full md:w-40 md:m-0">
+          <input
+            type="date"
+            class="rounded-2xl datepicker-input"
+            id="startDate"
+            formControlName="startDate"
+            placeholder="Fecha de inicio"
+          />
+        </div>
+
+        <div class="flex flex-col pr-1 lg:pr-3 w-full md:w-40 my-2 md:m-0">
+          <input
+            type="date"
+            class="rounded-2xl datepicker-input"
+            id="endDate"
+            formControlName="endDate"
+            placeholder="Fecha de fin"
+          />
+        </div>
       </div>
 
-      <div class="flex flex-col pr-1 lg:pr-3">
-        <label class="px-5" for="section">Sección:</label>
-        <select class="rounded-2xl" id="section" (change)="onFiltersChanged()">
-          <option value="" disabled selected>Sección</option>
-          <!-- Opciones dinámicas para secciones -->
-        </select>
-      </div>
     </div>
     <button
-      (click)="onFiltersChanged()" disabled
+      (click)="onFiltersChanged()"
       type="button"
-      class="mt-5 cursor-not-allowed  focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+      class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
     >
-      Aplicar Filtro
+      Buscar
     </button>
-  </div>
+    <button
+      (click)="generatePDF()"
+      type="button"
+      class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+    >
+      PDF
+    </button>
+    <button (click)="exportToExcel()" type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
+      Excel
+    </button>
+  </form>
 
   <div class="relative overflow-x-auto shadow-md rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500" id="assistanceTable">
       <thead class="text-md uppercas bg-gray-600 text-white">
         <tr>
           <th scope="col" class="px-6 py-3">Estudiante</th>
@@ -53,55 +82,40 @@
           <th scope="col" class="px-6 py-3">Fecha</th>
           <th scope="col" class="px-6 py-3">Hora</th>
           <th scope="col" class="px-6 py-3">Estado</th>
-          <!-- <th scope="col" class="px-6 py-3">
-              Acciones
-            </th> -->
         </tr>
       </thead>
       <tbody>
         @for (assistance of assistanceList; track assistance.id) {
-        <tr>
-          <td
-            scope="row"
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-          >
-            {{ assistance.student.surname }} {{ assistance.student.name }}
-          </td>
-          <td class="px-6 py-4">
-            {{ assistance.user.surname }} {{ assistance.user.name }}
-          </td>
-          <td class="px-6 py-4">
-            {{
-              assistance.date?.toLocaleDateString("es-ES", {
-                weekday: "short",
-                year: "numeric",
-                month: "short",
-                day: "2-digit"
-              })
-            }}
-          </td>
-          <td class="px-6 py-4">
-            {{ assistance.date?.toLocaleTimeString() }}
-          </td>
-          <td class="px-6 py-4">
-            @if (assistance.state == "ASISTIO") {
-            <span class="bg-lime-500 text-white rounded-md px-2">{{
-              assistance.state
-            }}</span>
-            }@else if (assistance.state == "TARDANZA") {
-            <span class="bg-yellow-400 text-white rounded-md px-2">{{
-              assistance.state
-            }}</span>
-            }@else if (assistance.state == "FALTO"){
-            <span class="bg-red-500 text-white rounded-md px-2">{{
-              assistance.state
-            }}</span>
-            }
-          </td>
-          <!-- <td class="px-6 py-4">
-                <button class="font-medium text-blue-500 hover:underline">Editar estado</button>
-              </td> -->
-        </tr>
+          <tr>
+            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              {{ assistance.student.surname }} {{ assistance.student.name }}
+            </td>
+            <td class="px-6 py-4">
+              {{ assistance.user.surname }} {{ assistance.user.name }}
+            </td>
+            <td class="px-6 py-4">
+              {{
+                assistance.date?.toLocaleDateString("es-ES", {
+                  weekday: "short",
+                  year: "numeric",
+                  month: "short",
+                  day: "2-digit"
+                })
+              }}
+            </td>
+            <td class="px-6 py-4">
+              {{ assistance.date?.toLocaleTimeString() }}
+            </td>
+            <td class="px-6 py-4">
+              @if (assistance.state == "ASISTIO") {
+                <span class="bg-lime-500 text-white rounded-md px-2">{{ assistance.state }}</span>
+              } @else if (assistance.state == "TARDANZA") {
+                <span class="bg-yellow-400 text-white rounded-md px-2">{{ assistance.state }}</span>
+              } @else if (assistance.state == "FALTO") {
+                <span class="bg-red-500 text-white rounded-md px-2">{{ assistance.state }}</span>
+              }
+            </td>
+          </tr>
         }
       </tbody>
     </table>

@@ -5,39 +5,29 @@ import dev.sairmh.getsemaniassistance.repository.AssistanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AssistanceService {
     @Autowired
     private AssistanceRepository assistanceRepository;
 
-    public List<Assistance> getAllAssistance(){
+    public List<Assistance> getAllAssistance() {
         return assistanceRepository.findAll();
-
     }
 
-    public List<Assistance> getFilteredAssistances(String gradeName, String sectionName, int day, int month) {
-        LocalDateTime startOfDay = LocalDateTime.now().withDayOfMonth(day).withMonth(month).withHour(0).withMinute(0).withSecond(0);
-        LocalDateTime endOfDay = startOfDay.withHour(23).withMinute(59).withSecond(59);
-
-        return assistanceRepository.findByStudent_Grade_NameAndStudent_Section_NameAndDateBetween(
-                gradeName, sectionName, startOfDay, endOfDay);
+    public List<Assistance> getFilteredAssistances(String educationName, String gradeName, String sectionName, LocalDateTime startDate, LocalDateTime endDate) {
+        return assistanceRepository.findByStudent_EducationLevel_NameAndStudent_Grade_NameAndStudent_Section_NameAndDateBetween(
+                educationName, gradeName, sectionName, startDate, endDate);
     }
 
-    public List<Assistance> getAssistancesByState(String gradeName, String sectionName, int day, int month, String state) {
-        LocalDateTime startOfDay = LocalDateTime.now().withDayOfMonth(day).withMonth(month).withHour(0).withMinute(0).withSecond(0);
-        LocalDateTime endOfDay = startOfDay.withHour(23).withMinute(59).withSecond(59);
-
-        return assistanceRepository.findByStudent_Grade_NameAndStudent_Section_NameAndDateBetweenAndState(
-                gradeName, sectionName, startOfDay, endOfDay, state);
+    public List<Assistance> getAssistancesByState(String educationName, String gradeName, String sectionName, LocalDateTime startDate, LocalDateTime endDate, String state) {
+        return assistanceRepository.findByStudent_EducationLevel_NameAndStudent_Grade_NameAndStudent_Section_NameAndDateBetweenAndState(
+                educationName, gradeName, sectionName, startDate, endDate, state);
     }
-
 
     public Assistance create(Assistance assistance) {
         List<Assistance> assistancesStudent = assistanceRepository.findByStudent(assistance.getStudent());
@@ -52,11 +42,11 @@ public class AssistanceService {
             return prevAssistance;
         } else {
             LocalTime time = assistance.getDate().toLocalTime();
-            if (time.isAfter(LocalTime.of(7,0)) && time.isBefore(LocalTime.of(21, 00))) {
+            if (time.isAfter(LocalTime.of(1, 0)) && time.isBefore(LocalTime.of(21, 0))) {
                 assistance.setState("ASISTIO");
-            } else if (time.isAfter(LocalTime.of(21,1)) && time.isBefore(LocalTime.of(21, 10))) {
+            } else if (time.isAfter(LocalTime.of(21, 1)) && time.isBefore(LocalTime.of(21, 10))) {
                 assistance.setState("TARDANZA");
-            } else if (time.isAfter(LocalTime.of(21,11))) {
+            } else if (time.isAfter(LocalTime.of(21, 11))) {
                 assistance.setState("FALTO");
             } else {
                 return null;

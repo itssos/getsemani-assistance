@@ -144,7 +144,12 @@ export class StudentFormComponent {
                 this._sweetAlert.showAlert()
               },
               error: (err) => {
-                console.error(err);
+                console.log(err.error.detail);
+
+                if(err.error.detail == "The dni already exists."){
+                  this._sweetAlert.DniAlreadyExists()
+                }
+
                 this.formIsValid();
               }
             });
