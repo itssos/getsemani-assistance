@@ -57,6 +57,17 @@ export class SweetAlert {
       showConfirmButton: false
     });
   }
+  DniAlreadyExists(){
+    Swal.fire({
+      icon: 'error',
+      title: '¡Error!',
+      text: 'El DNI ya esta registrado.',
+      toast: true,
+      position: 'top-end',
+      timer: 1500,
+      showConfirmButton: false
+    });
+  }
 
   fileNotStructureValid(){
     Swal.fire({

@@ -150,6 +150,9 @@ export class FileUploadComponent {
             error: (err) => {
               this.isLoadingTable = false;
               this.isValidData = false;
+              if(err.error.detail == "The dni already exists."){
+                this._sweetAlert.DniAlreadyExists()
+              }
               console.error('Error saving student batch', err);
             }
           });

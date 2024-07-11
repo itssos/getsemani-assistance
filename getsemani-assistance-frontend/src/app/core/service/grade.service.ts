@@ -24,4 +24,12 @@ export class GradeService {
     return this._httpClient.get<IGrade>(`${this.apiUrl}/name=${name}`)
   }
 
+  public save(grade: IGrade): Observable<IGrade> {
+    return this._httpClient.post<IGrade>(`${this.apiUrl}`, grade)
+  }
+
+  public update(grade: IGrade): Observable<IGrade> {
+    return this._httpClient.put<IGrade>(`${this.apiUrl}`, grade)
+  }
+
 }

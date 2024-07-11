@@ -13,7 +13,7 @@ export class jwtInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let token:String=this.loginService.userToken;
-
+        console.log(token)
         if (req.url.includes('/auth/login')) {
           return next.handle(req);
         }
